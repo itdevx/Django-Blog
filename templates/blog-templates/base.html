@@ -113,8 +113,11 @@
                             <ul class="navigation-menu nav-left">
                                 <li><a href="{% url 'blog:index' %}" class="sub-menu-item ps-lg-0">خانه</a></li>
                                 <li><a href="javascript:void(0)" class="sub-menu-item">دسته بندی</a></li>
-
-                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">ورود</a></li>
+                                {% if not request.user.is_authenticated %}
+                                    <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">ورود</a></li>
+                                {% else %}
+                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">خروج</a></li>
+                                {% endif %}
                             </ul>
                             <!--end navigation menu-->
                         </div>

@@ -39,45 +39,55 @@
                 <div class="col-lg-8">
                     <div class="features-absolute bg-white p-4 p-md-5 rounded shadow">
                         <div class="custom-form">
-                            <form method="post" name="myForm" onsubmit="return validateForm()">
+                            <form method="post" name="myForm">
+                                {% csrf_token %}
                                 <p id="error-msg"></p>
                                 <div id="simple-msg"></div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">نام شما <span class="text-danger">*</span></label>
-                                            <input name="name" id="name" type="text" class="form-control" placeholder="نام :">
+                                            {{ form.username }}
+                                            {% for e in form.username.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="ایمیل :">
+                                            {{ form.email }}
+                                            {% for e in form.email.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                                                        <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام شما <span class="text-danger">*</span></label>
+                                            {{ form.password1 }}
+                                            {% for e in form.password1.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
+                                            {{ form.password2 }}
+                                            {% for e in form.password2.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <!--end col-->
-
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">موضوع</label>
-                                            <input name="subject" id="subject" class="form-control" placeholder="موضوع :">
-                                        </div>
-                                    </div>
-                                    <!--end col-->
-
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">پیام شما <span class="text-danger">*</span></label>
-                                            <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="بنویسید :"></textarea>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button type="submit" id="submit" name="send" class="btn btn-primary">ارسال
-                                                پیام</button>
+                                            <button type="submit" id="submit" name="send" class="btn btn-primary">ثبت نام</button>
                                         </div>
                                     </div>
                                     <!--end col-->

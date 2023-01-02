@@ -13,5 +13,5 @@ urlpatterns = [
     ),
     path(
         'sign-in/', SignInBlogView.as_view(), name='sign-in'
-    )
+    ),
 ]

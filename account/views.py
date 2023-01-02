@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import View
-from .forms import SignInForm
+from django.views.generic import View, CreateView
+from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -32,6 +32,12 @@ class SignInBlogView(View):
             if user is not None:
                 login(request, user)
                 return redirect('blog:index')
+
+
+class SignUpBlogView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy('blog:index')
+    template_name = 'authenticate-templates/sign-up.html'
 
 
 class DashboardBlogView(View):
