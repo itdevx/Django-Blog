@@ -1,0 +1,26 @@
+Article Model :
+    title
+    slug
+    dateField
+    active
+    image
+    category
+    # time for read
+    author
+    description
+    # tags
+    # views quantity
+
+Category Model:
+    category name
+    category slug
+
+Author Model :
+    username
+    full name
+    image
+    email
+    job
+    bio
+
+

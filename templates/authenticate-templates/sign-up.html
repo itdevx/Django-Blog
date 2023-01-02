@@ -1,0 +1,97 @@
+﻿{% extends 'blog-templates/base.html' %}
+{% load static %}
+{% block title %}
+صفحه اصلی
+{% endblock %}
+
+{% block body %}
+    <!-- Home Start -->
+    <section class="bg-half-170 bg-light d-table w-100">
+        <div class="container" style="margin-top: 70px">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="heading-title text-center">
+                        <h2 class="text-dark title mb-3">ثبت نام</h2>
+                        <p class="para-desc mx-auto text-muted">وبلاگ خود را با GetBlog بنویسید که می تواند همه چیز را
+                            برای وبلاگ ، اخبار ، مقاله و غیره فراهم کند.</p>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </section>
+    <!--end section-->
+    <div class="position-relative">
+        <div class="shape overflow-hidden text-white">
+            <svg viewbox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+    <!-- Home End -->
+
+    <!-- Start -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="features-absolute bg-white p-4 p-md-5 rounded shadow">
+                        <div class="custom-form">
+                            <form method="post" name="myForm" onsubmit="return validateForm()">
+                                <p id="error-msg"></p>
+                                <div id="simple-msg"></div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام شما <span class="text-danger">*</span></label>
+                                            <input name="name" id="name" type="text" class="form-control" placeholder="نام :">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
+                                            <input name="email" id="email" type="email" class="form-control" placeholder="ایمیل :">
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">موضوع</label>
+                                            <input name="subject" id="subject" class="form-control" placeholder="موضوع :">
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">پیام شما <span class="text-danger">*</span></label>
+                                            <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="بنویسید :"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button type="submit" id="submit" name="send" class="btn btn-primary">ارسال
+                                                پیام</button>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                            </form>
+                        </div>
+                        <!--end custom-form-->
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </section>
+{% endblock %}

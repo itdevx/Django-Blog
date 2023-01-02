@@ -1,0 +1,138 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+        <!-- Bootstrap -->
+    <link href="{% static 'css\bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Icons -->
+    <link href="{% static 'css\materialdesignicons.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css\tiny-slider.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link href="{% static 'css\tabler-icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css\tobii.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- Main Css -->
+    <link href="{% static 'css\style.min.css' %}" rel="stylesheet" type="text/css" id="theme-opt">
+</head>
+<body>
+    <!-- TAGLINE START-->
+    <div class="tagline bg-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center g-0">
+                <div class="col-lg-10 col-md-9">
+                    <div class="d-flex justify-content-between align-items-center position-relative overflow-hidden">
+                        <div class="text-slider">
+                            <ul class="list-inline mb-0 move-text">
+                                <li class="mb-0 list-inline-item"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> بهترین 10 موسیقی: به موسیقی برتر جدید سال
+                                        گوش دهید. <small class="text-muted">3 سال پیش</small> </a></li>
+                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> 10 فیلم برتر برتر سال 2018 تاکنون: فیلم های
+                                        عالی برای تماشای هم اکنون. <small class="text-muted">3 سال پیش</small></a></li>
+                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> 5 داستان مد از سراسر وب که ممکن است این
+                                        هفته از دست داده باشید. <small class="text-muted">3 سال پیش</small></a></li>
+                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> پزشکان از دوستیابی آنلاین برای ساخت پیوند
+                                        ارگان AI الهام می گیرند. <small class="text-muted">3 سال پیش</small></a></li>
+                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> سونی لیستی از 39 عنوان را به اشتراک می
+                                        گذارد که در هنگام راه اندازی برای PS4 Pro بهینه شده است. <small class="text-muted">3 سال پیش</small></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--end col-->
+
+                <div class="col-lg-2 col-md-3 text-end">
+                    <span class="text-muted">جمعه ، 4 آبان 1401</span>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </div>
+    <!--end taglines-->
+    <!-- Tagline End -->
+    <div class="magazine-logo d-none d-lg-block">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <a href="index-2.html">
+                        <img src="{% static 'images\logo-magazine.png' %}" height="30" class="mx-auto d-block" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header id="topnav" class="defaultscroll sticky magazine-logo-hight">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="border-bottom">
+                        <!-- Logo container-->
+                        <a class="logo d-lg-none" href="index-2.html">
+                            <img src="images\logo.png" height="22" alt="">
+                        </a>
+                        <!-- End Logo container-->
+                        <div class="menu-extras">
+                            <div class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </div>
+                        </div>
+
+                        <ul class="buy-button list-inline mb-0">
+                            <li class="list-inline-item mb-0">
+                                <div class="search-bar">
+                                    <div id="search" class="menu-search mb-0">
+                                        <form role="search" method="get" id="searchform" class="searchform">
+                                            <div>
+                                                <input type="text" class="border rounded" name="s" id="s" placeholder="جستوجو">
+                                                <input type="submit" id="searchsubmit" value="Search">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div id="navigation">
+                            <!-- Navigation Menu-->
+                            <ul class="navigation-menu nav-left">
+                                <li><a href="{% url 'blog:index' %}" class="sub-menu-item ps-lg-0">خانه</a></li>
+                                <li><a href="javascript:void(0)" class="sub-menu-item">داشبورد</a></li>
+                                <li><a href="javascript:void(0)" class="sub-menu-item">خروج</a></li>
+                            </ul>
+                            <!--end navigation menu-->
+                        </div>
+                        <!--end navigation-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end container-->
+    </header>
+
+    {% block body %}
+    {% endblock %}
+
+
+    <!-- javascript -->
+    <script src="{% static 'js\bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js\tiny-slider.js' %}"></script>
+    <script src="{% static 'js\plugins.init.js' %}"></script>
+    <script src="{% static 'js\shuffle.min.js' %}"></script>
+    <script src="{% static 'js\tobii.min.js' %}"></script>
+    <!--Note: All init js like tiny slider, counter, lightbox, gallery etc.-->
+    <script src="{% static 'js\app.js' %}"></script>
+</body>
+</html>
