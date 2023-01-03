@@ -18,14 +18,14 @@ STATUS = (
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
-    date = models.DateField(auto_now=True)
-    status = models.CharField(choices=STATUS, max_length=1)
-    image = models.ImageField(upload_to='article-image-intro')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = RichTextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=200, verbose_name='عنوان')
+    slug = models.SlugField(max_length=200, verbose_name='آدرس')
+    date = models.DateField(auto_now=True, verbose_name='تاریخ')
+    status = models.CharField(choices=STATUS, max_length=1, verbose_name='وضعیت')
+    image = models.ImageField(upload_to='article-image-intro', verbose_name='تصویر')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='نویسنده')
+    description = RichTextField(verbose_name='مقاله')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='دسته بندی')
 
     def __str__(self):
         return self.title
