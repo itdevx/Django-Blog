@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpBlogView, DashboardBlogView, SignInBlogView
+from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView
 
 app_name = 'account'
 
@@ -14,4 +14,7 @@ urlpatterns = [
     path(
         'sign-in/', SignInBlogView.as_view(), name='sign-in'
     ),
+    path(
+        'sign-out/', SignOutBlogView.as_view(), name='sign-out'
+    )
 ]

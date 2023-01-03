@@ -116,7 +116,8 @@
                                 {% if not request.user.is_authenticated %}
                                     <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">ورود</a></li>
                                 {% else %}
-                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">خروج</a></li>
+                                <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item text-primary">داشبورد</a></li>
+                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-danger">خروج</a></li>
                                 {% endif %}
                             </ul>
                             <!--end navigation menu-->
