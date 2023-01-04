@@ -27,18 +27,3 @@ class SignUpForm(UserCreationForm):
             'password1',
             'password2'
         ]
-
-
-class ArticleForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'class': 'form-control mb-3', 'placeholder': 'عنوان'})
-        self.fields['slug'].widget.attrs.update({'class': 'form-control mb-3', 'placeholder': 'آدرس'})
-        self.fields['status'].widget.attrs.update({'class': 'form-control mb-3'})
-        self.fields['author'].widget.attrs.update({'class': 'form-control mb-3'})
-        self.fields['description'].widget.attrs.update({'class': 'form-control mb-3'})
-        self.fields['category'].widget.attrs.update({'class': 'form-control mb-3'})
-
-    class Meta:
-        model = Article
-        fields = '__all__'

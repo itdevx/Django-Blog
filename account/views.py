@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView
-from .forms import SignInForm, SignUpForm, ArticleForm
+from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
+from .mixins import FormValidMixins, FieldsMixins
+from blog.models import Article
 
 
 class SignUpBlogView(View):
@@ -51,7 +53,7 @@ class DashboardBlogView(View):
         return render(request, self.template_name)
 
 
-class CreateArticle(CreateView):
-    form_class = ArticleForm
+class CreateArticle(FormValidMixins, FieldsMixins, CreateView):
+    model = Article
     success_url = reverse_lazy('blog:dashboard')
     template_name = 'dashboard/create-article.html'

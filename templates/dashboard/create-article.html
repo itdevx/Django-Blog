@@ -1,5 +1,5 @@
 {% extends 'dashboard/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %} ایجاد مقاله جدید {% endblock %}
 
 {% block body %}
@@ -28,18 +28,18 @@
                 <div class="col-lg-10">
                     <div class="features-absolute bg-white p-4 p-md-5 rounded shadow">
                         <div class="custom-form">
-                            <form method="post" name="myForm" onsubmit="return validateForm()">
+                            <form method="POST" name="myForm">
                                 {% csrf_token %}
                                 <p id="error-msg"></p>
                                 <div id="simple-msg"></div>
                                 <div class="row">
-                                    {{ form }}
+                                    {{ form|crispy }}
                                     {{ form.media }}                                    
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button type="submit" id="submit" name="send" class="btn btn-primary">ایجاد</button>
+                                            <button type="submit" id="submit" name="send" class="btn btn-primary mt-5">ایجاد</button>
                                         </div>
                                     </div>
                                 </div>
