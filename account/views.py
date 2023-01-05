@@ -4,7 +4,7 @@ from django.views.generic import View, CreateView
 from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
-from blog.models import Article
+from blog.models import Article, Category
 
 
 class SignUpBlogView(View):
@@ -50,7 +50,12 @@ class DashboardBlogView(View):
     template_name = 'dashboard/dashboard.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        if request.user.is_superuser:
+            article = Article.objects.all()
+        else:
+            article = Article.objects.filter(author=request.user)
+
+        return render(request, self.template_name, {'article': article})
 
 
 class CreateArticle(FormValidMixins, FieldsMixins, CreateView):
