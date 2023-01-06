@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import View, CreateView
+from django.views.generic import View, CreateView, UpdateView
 from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
@@ -60,5 +60,19 @@ class DashboardBlogView(View):
 
 class CreateArticle(FormValidMixins, FieldsMixins, CreateView):
     model = Article
-    success_url = reverse_lazy('blog:dashboard')
+    success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/create-article.html'
+
+
+# add mixins
+class UpdateArticle(UpdateView):
+    model = Article
+    fields = '__all__'
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'dashboard/update-article.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['article'] = Article.objects.all()
+        return context
+    

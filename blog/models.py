@@ -1,6 +1,10 @@
+from asyncore import read
+from calendar import prmonth
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.urls import reverse
+import readtime
 
 
 class Category(models.Model):
@@ -29,3 +33,11 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolut_url(self):
+        return reverse('blog:detail-article', args=[self.id, self.slug])
+
+    def get_readtime(self):
+        result = readtime.of_text(self.description)
+        res = str(result.text)
+        return res.replace('min', 'دقیقه')

@@ -13,14 +13,16 @@
                       <th scope="col">عنوان</th>
                       <th scope="col">تصویر</th>
                       <th scope="col">وضعیت</th>
+                      <th scope="col">ویرایش</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for a in article %}
                     <tr class="text-end">
-                      <td>{{ a.title }}</td>
+                      <td><a href="{{ a.get_absolut_url }}">{{ a.title }}</a></td>
                       <td><img src="{{ a.image.url }}" width="100" alt=""></td>
                       <td>{{ a.status }}</td>
+                      <td><a href="{% url 'account:update-article' a.id %}">ویرایش</a></td>
                     </tr>
                     {% endfor %}
                   </tbody>

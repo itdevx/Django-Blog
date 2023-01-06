@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle
+from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle, UpdateArticle
 
 app_name = 'account'
 
@@ -19,5 +19,8 @@ urlpatterns = [
     ),
     path(
         'dashboard/create-article/', CreateArticle.as_view(), name='create-article'
+    ),
+    path(
+        'dashboard/update-article/<int:pk>/', UpdateArticle.as_view(), name='update-article'
     )
 ]

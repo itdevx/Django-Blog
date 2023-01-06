@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, View, DetailView
+from .models import Category, Article
 
 
 class IndexView(View):
@@ -12,8 +13,16 @@ class IndexView(View):
 class DetailBlogView(View):
     template_name = 'blog-templates/magazine-news-detail.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self, request, pk, slug):
+        article = get_object_or_404(Article, id=pk, slug=slug, status=1)
+        last_article = Article.objects.filter(id=pk, slug=slug, status=1)[:3]
+
+        context = {
+            'article': article,
+            'la': last_article
+        }
+
+        return render(request, self.template_name, context)
 
 
 class ListBlogView(View):
