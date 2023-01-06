@@ -29,7 +29,7 @@
                         <div class="text-slider">
                             <ul class="list-inline mb-0 move-text">
                                 {% for a in article %}
-                                <li class="mb-0 list-inline-item"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i>{{ a.title }}<small class="text-muted"> {{ a.date }} </small> </a></li>
+                                    <li class="mb-0 list-inline-item"><a href="{{ a.get_absolut_url }}" class="text-dark"><i class="ti ti-chevron-right"></i>{{ a.title }}<small class="text-muted"> {{ a.date }} </small> </a></li>
                                 {% endfor %}
                             </ul>
                         </div>

@@ -28,16 +28,9 @@
                     <div class="d-flex justify-content-between align-items-center position-relative overflow-hidden">
                         <div class="text-slider">
                             <ul class="list-inline mb-0 move-text">
-                                <li class="mb-0 list-inline-item"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> بهترین 10 موسیقی: به موسیقی برتر جدید سال
-                                        گوش دهید. <small class="text-muted">3 سال پیش</small> </a></li>
-                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> 10 فیلم برتر برتر سال 2018 تاکنون: فیلم های
-                                        عالی برای تماشای هم اکنون. <small class="text-muted">3 سال پیش</small></a></li>
-                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> 5 داستان مد از سراسر وب که ممکن است این
-                                        هفته از دست داده باشید. <small class="text-muted">3 سال پیش</small></a></li>
-                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> پزشکان از دوستیابی آنلاین برای ساخت پیوند
-                                        ارگان AI الهام می گیرند. <small class="text-muted">3 سال پیش</small></a></li>
-                                <li class="mb-0 list-inline-item ms-5"><a href="#!" class="text-dark"><i class="ti ti-chevron-right"></i> سونی لیستی از 39 عنوان را به اشتراک می
-                                        گذارد که در هنگام راه اندازی برای PS4 Pro بهینه شده است. <small class="text-muted">3 سال پیش</small></a></li>
+                                {% for a in article_ %}
+                                    <li class="mb-0 list-inline-item"><a href="{{ a.get_absolut_url }}" class="text-dark"><i class="ti ti-chevron-right"></i>{{ a.title }}<small class="text-muted">3 سال پیش</small> </a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
