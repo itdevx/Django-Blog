@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, View, DetailView
 from .models import Category, Article
@@ -36,3 +37,21 @@ class ListBlogView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class SearchFieldView(ListView):
+    template_name = 'blog-templates/list-magazine.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['article_'] = Article.objects.filter(status=1)[:3]
+        # context['article'] = Article.objects.filter(status=1)
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        if q is not None:
+            return Article.objects.search(q)
+        return Article.objects.filter(status=1)
+
+
+

@@ -5,6 +5,13 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 from django.urls import reverse
 import readtime
+from django.db.models import Q
+
+
+class Manager(models.Manager):
+    def search(self, q):
+        get_article = Q(title__icontains=q) | Q(description__icontains=q)
+        return self.get_queryset().filter(get_article, status=1).distinct()
 
 
 class Category(models.Model):
@@ -30,6 +37,7 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='نویسنده')
     description = RichTextField(verbose_name='مقاله')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='دسته بندی')
+    objects = Manager()
 
     def __str__(self):
         return self.title

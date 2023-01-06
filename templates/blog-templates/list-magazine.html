@@ -34,189 +34,29 @@
             <div class="row">
                 <div class="col-lg-8 col-md-6">
                     <div class="row">
+                        {% for a in article %}
                         <div class="col-lg-6">
                             <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\2.jpg' %}" class="img-fluid" alt="">
+                                <img src="{{ a.image.url }}" class="img-fluid" alt="">
                                 <div class="card-body">
                                     <ul class="list-unstyled d-flex align-items-center justify-content-between">
                                         <li>
-                                            <span class="badge bg-soft rounded-pill">محبوب</span>
+                                            <span class="badge bg-soft rounded-pill">{{ a.category }}</span>
                                         </li>
 
                                         <li>
-                                            <span class="text-muted">401/05/09</span>
+                                            <span class="text-muted">{{ a.date }}</span>
                                         </li>
                                     </ul>
 
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">بازاریابی موبایل ، سنتز
-                                        آن و 2021 پیش آگهی ارائه می دهد</a>
+                                    <a href="{{ a.get_absolut_url }}" class="text-dark h5 title">{{ a.title }}</a>
 
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
+                                    <a href="{{ a.get_absolut_url }}" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <!--end col-->
+                        {% endfor %}
 
-                        <div class="col-lg-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\3.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">محبوب</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">دیگر نگران مهلت ها
-                                        نباشید!ما شما را پوشانده ایم</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-lg-6 mt-4 pt-2">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\4.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">محبوب</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">استراتژی خود را تغییر
-                                        دهید: یک مشاور تجاری پیدا کنید</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-lg-6 mt-4 pt-2">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\5.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">محبوب</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">همه چیز در مورد مدل
-                                        سازی مالی + ترفند ها</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-lg-6 mt-4 pt-2">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\6.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">کسب و کار</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">الون ماسک می گوید
-                                        سفارشات Cybertruck 200،000 دارد</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-lg-6 mt-4 pt-2">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\7.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">کسب و کار</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">مراحل ساده برای به
-                                        روزرسانی استراتژی رسانه های اجتماعی</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-lg-6 mt-4 pt-2">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\8.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">کسب و کار</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">خلیج Talisker در Isle
-                                        of Skye در اسکاتلند</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-lg-6 mt-4 pt-2">
-                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                <img src="{% static 'images\agency\9.jpg' %}" class="img-fluid" alt="">
-                                <div class="card-body">
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                        <li>
-                                            <span class="badge bg-soft rounded-pill">کسب و کار</span>
-                                        </li>
-
-                                        <li>
-                                            <span class="text-muted">401/05/09</span>
-                                        </li>
-                                    </ul>
-
-                                    <a href="agency-blog-detail.html" class="text-dark h5 title">برای شروع روز خود ، پنج
-                                        چیز باید بدانید</a>
-
-                                    <a href="agency-blog-detail.html" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
                     </div>
                     <!--end row-->
 
@@ -251,9 +91,9 @@
                             <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded text-center">جست و جو
                             </h6>
                             <div id="search2" class="widget-search mt-4 mb-0">
-                                <form role="search" method="get" id="searchform" class="searchform">
+                                <form role="search" method="get" id="searchform" action="/search/" class="searchform">
                                     <div>
-                                        <input type="text" class="border rounded" name="s" id="s" placeholder="گذرواژه">
+                                        <input type="text" class="border rounded" name="q" id="s" placeholder="گذرواژه">
                                         <input type="submit" id="searchsubmit" value="Search">
                                     </div>
                                 </form>

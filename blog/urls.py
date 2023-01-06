@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import IndexView, DetailBlogView, ListBlogView
+from .views import IndexView, DetailBlogView, ListBlogView, SearchFieldView
 
 app_name = 'blog'
 
@@ -13,5 +13,8 @@ urlpatterns = [
     ),
     path(
         'list', ListBlogView.as_view(), name='list'
-    )
+    ),
+    path(
+        'search/', SearchFieldView.as_view(), name='search'
+    ),
 ]
