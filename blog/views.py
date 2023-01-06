@@ -15,7 +15,7 @@ class DetailBlogView(View):
 
     def get(self, request, pk, slug):
         article = get_object_or_404(Article, id=pk, slug=slug, status=1)
-        last_article = Article.objects.filter(id=pk, slug=slug, status=1)[:3]
+        last_article = Article.objects.filter(status=1)[:3]
 
         context = {
             'article': article,
