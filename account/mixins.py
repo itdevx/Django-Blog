@@ -1,14 +1,13 @@
 
 
-
 class FormValidMixins():
     def form_valid(self, form):
         if self.request.is_superuser:
             form.save()
-        else:
+        else:       
             self.obj = form.save(commit=False)
             self.obj.author = self.request.user
-            self.obj.status = 1
+            self.obj.status = 2
         return super().form_valid(form)
 
 
@@ -24,3 +23,4 @@ class FieldsMixins():
                 'category'
             ]
         return super().dispatch(request, *args, **kwargs)
+        

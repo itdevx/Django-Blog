@@ -28,7 +28,7 @@
                 <div class="col-lg-10">
                     <div class="features-absolute bg-white p-4 p-md-5 rounded shadow">
                         <div class="custom-form">
-                            <form method="POST" name="myForm">
+                            <form method="POST" name="myForm" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <p id="error-msg"></p>
                                 <div id="simple-msg"></div>

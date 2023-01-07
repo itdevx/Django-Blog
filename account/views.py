@@ -64,8 +64,7 @@ class CreateArticle(FormValidMixins, FieldsMixins, CreateView):
     template_name = 'dashboard/create-article.html'
 
 
-# add mixins
-class UpdateArticle(UpdateView):
+class UpdateArticle(FieldsMixins, UpdateView):
     model = Article
     fields = '__all__'
     success_url = reverse_lazy('account:dashboard')

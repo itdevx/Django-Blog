@@ -9,7 +9,7 @@ class IndexView(View):
     template_name = 'blog-templates/index-magazine.html'
 
     def get(self, request):
-        article_ = Article.objects.filter(status=1)
+        article_ = Article.objects.filter(status=1)       
         context = {
             'article_': article_
         }
@@ -21,7 +21,7 @@ class DetailBlogView(View):
 
     def get(self, request, pk, slug):
         article = get_object_or_404(Article, id=pk, slug=slug, status=1)
-        last_article = Article.objects.filter(status=1)[:3]
+        last_article = Article.objects.filter(status=1).order_by('-id')[:3]
         article_ = Article.objects.filter(status=1)
 
         context = {

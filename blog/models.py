@@ -6,6 +6,7 @@ from django.urls import reverse
 import readtime
 from django.db.models import Q
 from extentions.utils import jalali_converter
+from django.template.defaultfilters import slugify
 
 
 class Manager(models.Manager):
@@ -30,7 +31,7 @@ STATUS = (
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name='عنوان')
-    slug = models.SlugField(max_length=200, verbose_name='آدرس')
+    slug = models.SlugField(max_length=200,null=True, verbose_name='آدرس')
     date = models.DateField(auto_now=True, verbose_name='تاریخ')
     status = models.CharField(choices=STATUS, max_length=1, verbose_name='وضعیت')
     image = models.ImageField(upload_to='article-image-intro', verbose_name='تصویر')
@@ -52,3 +53,8 @@ class Article(models.Model):
     
     def get_date(self):
         return jalali_converter(self.date)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
