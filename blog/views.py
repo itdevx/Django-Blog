@@ -1,7 +1,8 @@
 from django.http import request
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, View, DetailView
+from django.views.generic import ListView, View
 from .models import Category, Article
+from django.db.models import Count
 
 
 class IndexView(View):
@@ -41,17 +42,16 @@ class ListBlogView(View):
 
 class SearchFieldView(ListView):
     template_name = 'blog-templates/list-magazine.html'
-    
+    context_object_name = 'article'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['article_'] = Article.objects.filter(status=1)[:3]
-        # context['article'] = Article.objects.filter(status=1)
-
+        context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
+        return context
     def get_queryset(self):
         q = self.request.GET.get('q')
         if q is not None:
             return Article.objects.search(q)
         return Article.objects.filter(status=1)
-
 
 

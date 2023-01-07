@@ -106,11 +106,9 @@
                             <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded text-center">دسته بندی
                                 ها</h6>
                             <ul class="list-unstyled mt-4 mb-0 catagories">
-                                <li class="d-flex justify-content-between"><a href="javascript:void(0)" class="title text-dark">مالی</a> <span>13</span></li>
-                                <li class="d-flex justify-content-between mt-2"><a href="javascript:void(0)" class="title text-dark">کسب و کار</a> <span>09</span></li>
-                                <li class="d-flex justify-content-between mt-2"><a href="javascript:void(0)" class="title text-dark">بلاگ</a> <span>18</span></li>
-                                <li class="d-flex justify-content-between mt-2"><a href="javascript:void(0)" class="title text-dark">شرکت های بزرگ</a> <span>20</span></li>
-                                <li class="d-flex justify-content-between mt-2"><a href="javascript:void(0)" class="title text-dark">سرمایه گذاری</a> <span>22</span></li>
+                                {% for c in category %}
+                                    <li class="d-flex justify-content-between"><a href="javascript:void(0)" class="title text-dark">{{ c.category_name }}</a> <span>{{ c.articles_count }}</span></li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!-- CATAGORIES -->
