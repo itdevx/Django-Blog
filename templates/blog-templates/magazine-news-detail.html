@@ -45,7 +45,7 @@
                                 </div>
 
                                 <ul class="list-inline d-flex pt-4 mb-0 border-top justify-content-between">
-                                    <li class="list-inline-item text-muted"><i class="uil uil-calender h5 text-dark"></i> {{ article.date }} </li>
+                                    <li class="list-inline-item text-muted"><i class="uil uil-calender h5 text-dark"></i> {{ article.get_date }} </li>
                                     <li class="list-inline-item text-muted"><i class="uil uil-clock h5 text-dark"></i> {{ article.get_readtime }} </li>
                                 </ul>
                             </div>
@@ -144,7 +144,7 @@
                                             <img src="{{ l.image.url }}" class="avatar avatar-small rounded" style="width: auto;" alt="">
                                             <div class="flex-1 me-3">
                                                 <a href="{{ l.get_abolut_url }}" class="d-block widget-post-title text-dark">{{ l.title }}</a>
-                                                <span class="text-muted">{{ l.date }}</span>
+                                                <span class="text-muted">{{ l.get_date }}</span>
                                             </div>
                                         </div>
                                         {% endfor %}

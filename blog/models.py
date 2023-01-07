@@ -1,11 +1,11 @@
-from asyncore import read
-from calendar import prmonth
+from this import d
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 from django.urls import reverse
 import readtime
 from django.db.models import Q
+from extentions.utils import jalali_converter
 
 
 class Manager(models.Manager):
@@ -49,3 +49,6 @@ class Article(models.Model):
         result = readtime.of_text(self.description)
         res = str(result.text)
         return res.replace('min', 'دقیقه')
+    
+    def get_date(self):
+        return jalali_converter(self.date)

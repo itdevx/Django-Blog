@@ -12,6 +12,7 @@
                     <tr>
                       <th scope="col">عنوان</th>
                       <th scope="col">تصویر</th>
+                      <th scope="col">تاریخ</th>
                       <th scope="col">وضعیت</th>
                       <th scope="col">ویرایش</th>
                     </tr>
@@ -21,6 +22,7 @@
                     <tr class="text-end">
                       <td><a href="{{ a.get_absolut_url }}">{{ a.title }}</a></td>
                       <td><img src="{{ a.image.url }}" width="100" alt=""></td>
+                      <td>{{ a.get_date }}</td>
                       <td>
                         {% if a.status == '1' %}
                           <p class="text-success">منتشر شده</p>

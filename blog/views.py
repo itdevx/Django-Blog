@@ -47,7 +47,10 @@ class SearchFieldView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
+        context['article_'] = Article.objects.filter(status=1)
         return context
+
+
     def get_queryset(self):
         q = self.request.GET.get('q')
         if q is not None:
