@@ -21,7 +21,13 @@
                     <tr class="text-end">
                       <td><a href="{{ a.get_absolut_url }}">{{ a.title }}</a></td>
                       <td><img src="{{ a.image.url }}" width="100" alt=""></td>
-                      <td>{{ a.status }}</td>
+                      <td>
+                        {% if a.status == '1' %}
+                          <p class="text-success">منتشر شده</p>
+                        {% else %}
+                          <p class="text-danger">منتشر نشده</p>
+                        {% endif %}
+                      </td>
                       <td><a href="{% url 'account:update-article' a.id %}">ویرایش</a></td>
                     </tr>
                     {% endfor %}
