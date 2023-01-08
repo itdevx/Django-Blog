@@ -107,7 +107,7 @@
                                 ها</h6>
                             <ul class="list-unstyled mt-4 mb-0 catagories">
                                 {% for c in category %}
-                                    <li class="d-flex justify-content-between"><a href="javascript:void(0)" class="title text-dark">{{ c.category_name }}</a> <span>{{ c.articles_count }}</span></li>
+                                    <li class="d-flex justify-content-between"><a href="/article/{{ c.category_slug }}/" class="title text-dark">{{ c.category_name }}</a> <span>{{ c.articles_count }}</span></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -118,30 +118,15 @@
                             <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded text-center">پست های
                                 اخیر</h6>
                             <div class="mt-4">
-                                <div class="d-flex align-items-center">
-                                    <img src="{% static 'images\agency\1.jpg' %}" class="avatar avatar-small rounded" style="width: auto;" alt="">
-                                    <div class="flex-1 me-3">
-                                        <a href="agency-blog-detail.html" class="d-block widget-post-title text-dark">مشاوره کسب و کار</a>
-                                        <span class="text-muted">1401/08/09</span>
-                                    </div>
-                                </div>
-
+                                {% for l in last_article %}
                                 <div class="d-flex align-items-center mt-3">
-                                    <img src="{% static 'images\agency\2.jpg' %}" class="avatar avatar-small rounded" style="width: auto;" alt="">
+                                    <img src="{{ l.image.url }}" class="avatar avatar-small rounded" style="width: 100px;" alt="">
                                     <div class="flex-1 me-3">
-                                        <a href="agency-blog-detail.html" class="d-block widget-post-title text-dark">رشد کسب و کار شما</a>
-                                        <span class="text-muted">1401/08/09</span>
+                                        <a href="{{ l.get_absolut_url }}" class="d-block widget-post-title text-dark">{{ l.title }}</a>
+                                        <span class="text-muted">{{ l.get_date }}</span>
                                     </div>
                                 </div>
-
-                                <div class="d-flex align-items-center mt-3">
-                                    <img src="{% static 'images\agency\3.jpg' %}" class="avatar avatar-small rounded" style="width: auto;" alt="">
-                                    <div class="flex-1 me-3">
-                                        <a href="agency-blog-detail.html" class="d-block widget-post-title text-dark">به
-                                            تعادل باشکوه نگاه کنید</a>
-                                        <span class="text-muted">1401/08/09</span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <!-- RECENT POST -->

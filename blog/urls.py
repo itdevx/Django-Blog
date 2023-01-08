@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import IndexView, DetailBlogView, ListBlogView, SearchFieldView, CategoryView
+from .views import IndexView, DetailBlogView, SearchFieldView, CategoryView
 
 app_name = 'blog'
 

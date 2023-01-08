@@ -38,13 +38,6 @@ class DetailBlogView(View):
         return render(request, self.template_name, context)
 
 
-class ListBlogView(View):
-    template_name = 'blog-templates/list-magazine.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
-
 class SearchFieldView(ListView):
     template_name = 'blog-templates/list-magazine.html'
     context_object_name = 'article'
@@ -53,6 +46,7 @@ class SearchFieldView(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
         context['article_'] = Article.objects.filter(status=1)
+        context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
         return context
 
     def get_queryset(self):
@@ -70,6 +64,7 @@ class CategoryView(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
         context['article_'] = Article.objects.filter(status=1)
+        context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
         return context
 
     def get_queryset(self):
