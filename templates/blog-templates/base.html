@@ -105,7 +105,9 @@
                             <!-- Navigation Menu-->
                             <ul class="navigation-menu nav-left">
                                 <li><a href="{% url 'blog:index' %}" class="sub-menu-item ps-lg-0">خانه</a></li>
-                                <li><a href="javascript:void(0)" class="sub-menu-item">دسته بندی</a></li>
+                                {% for c in category %}
+                                    <li><a href="/article/{{ c.category_slug }}/" class="sub-menu-item">{{ c.category_name }}</a></li>
+                                {% endfor %}
                                 {% if not request.user.is_authenticated %}
                                     <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">ورود</a></li>
                                 {% else %}

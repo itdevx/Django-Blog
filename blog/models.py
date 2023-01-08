@@ -1,4 +1,3 @@
-from this import d
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
@@ -14,6 +13,9 @@ class Manager(models.Manager):
         get_article = Q(title__icontains=q) | Q(description__icontains=q)
         return self.get_queryset().filter(get_article, status=1).distinct()
 
+    def categories(self, slug):
+        return self.get_queryset().filter(category__category_slug__iexact=slug, status=1).distinct()
+        
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100)

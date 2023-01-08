@@ -1,4 +1,4 @@
-from django.http import request
+from django.http import Http404, HttpResponse, request
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, View
 from .models import Category, Article
@@ -11,7 +11,8 @@ class IndexView(View):
     def get(self, request):
         article_ = Article.objects.filter(status=1)       
         context = {
-            'article_': article_
+            'article_': article_,
+            'category': Category.objects.all()
         }
         return render(request, self.template_name, context)
 
@@ -58,3 +59,21 @@ class SearchFieldView(ListView):
         return Article.objects.filter(status=1)
 
 
+class CategoryView(ListView):
+    template_name = 'blog-templates/list-magazine.html'
+    context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
+        context['article_'] = Article.objects.filter(status=1)
+        return context
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        category = Category.objects.filter(category_name__iexact=slug).first()
+        if category is None:
+            return Article.objects.categories(slug)
+        else:
+            return
+    
