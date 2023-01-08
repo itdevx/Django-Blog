@@ -61,61 +61,33 @@
                                     نخواهد بود. <small class="d-block text-muted mt-2">- ادیسون</small></blockquote>
                             </div>
 
-                            
                             <!--end row-->
-
-
                             <div class="card mt-4">
                                 <h5 class="card-title mb-0">اخبار مرتبط :</h5>
-
                                 <div class="row">
+                                    {% for r in r_a %}
                                     <div class="col-lg-6 mt-4 pt-2">
                                         <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                            <img src="{% static 'images\agency\2.jpg' %}" class="img-fluid" alt="">
+                                            <img src="{{ r.image.url }}" class="img-fluid" alt="">
                                             <div class="card-body">
                                                 <ul class="list-unstyled d-flex align-items-center justify-content-between">
                                                     <li>
-                                                        <span class="badge bg-soft rounded-pill">محبوب</span>
+                                                        <span class="badge bg-soft rounded-pill">{{ r.category }}</span>
                                                     </li>
 
                                                     <li>
-                                                        <span class="text-muted">1401/09/07</span>
+                                                        <span class="text-muted">{{ r.get_date }}</span>
                                                     </li>
                                                 </ul>
 
-                                                <a href="magazine-news-detail.html" class="text-dark h5 title">بازاریابی
-                                                    موبایل ، سنتز آن و 2021 پیش آگهی ارائه می دهد</a>
+                                                <a href="{{ r.get_absolut_url }}" class="text-dark h5 title">{{ r.title }}</a>
 
-                                                <a href="magazine-news-detail.html" class="read-more d-block mt-3">بیشتر
+                                                <a href="{{ r.get_absolut_url }}        " class="read-more d-block mt-3">بیشتر
                                                     بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end col-->
-
-                                    <div class="col-lg-6 mt-4 pt-2">
-                                        <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden">
-                                            <img src="{% static 'images\agency\3.jpg' %}" class="img-fluid" alt="">
-                                            <div class="card-body">
-                                                <ul class="list-unstyled d-flex align-items-center justify-content-between">
-                                                    <li>
-                                                        <span class="badge bg-soft rounded-pill">محبوب</span>
-                                                    </li>
-
-                                                    <li>
-                                                        <span class="text-muted">1401/09/07</span>
-                                                    </li>
-                                                </ul>
-
-                                                <a href="magazine-news-detail.html" class="text-dark h5 title">دیگر
-                                                    نگران مهلت ها نباشید!ما شما را پوشانده ایم</a>
-
-                                                <a href="magazine-news-detail.html" class="read-more d-block mt-3">بیشتر
-                                                    بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

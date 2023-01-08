@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, View
 from .models import Category, Article
 from django.db.models import Count
+from extentions.utils import jalali_converter
+import datetime
 
 
 class IndexView(View):
@@ -12,11 +14,14 @@ class IndexView(View):
         article_ = Article.objects.filter(status=1)
         first_articles = Article.objects.filter(status=1)[:4]
         first_articles_big = Article.objects.filter(status=1)[4:5]
+        date_ = jalali_converter(datetime.datetime.now())
+        
         context = {
             'article_': article_,
             'category': Category.objects.all(),
             'f_a': first_articles,
-            'f_a_b': first_articles_big
+            'f_a_b': first_articles_big,
+            'date': date_
         }
         return render(request, self.template_name, context)
 
@@ -28,12 +33,14 @@ class DetailBlogView(View):
         article = get_object_or_404(Article, id=pk, slug=slug, status=1)
         last_article = Article.objects.filter(status=1).order_by('-id')[:3]
         article_ = Article.objects.filter(status=1)
+        related_article = Article.objects.get_queryset().filter(category__article=article, status=1).order_by('-id').distinct()[:2]
 
         context = {
             'article': article,
             'la': last_article,
             'article_': article_,
             'category': Category.objects.all(),
+            'r_a': related_article
         }
         return render(request, self.template_name, context)
 
