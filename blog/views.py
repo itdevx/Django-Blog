@@ -14,14 +14,13 @@ class IndexView(View):
         article_ = Article.objects.filter(status=1)
         first_articles = Article.objects.filter(status=1)[:4]
         first_articles_big = Article.objects.filter(status=1)[4:5]
-        date_ = jalali_converter(datetime.datetime.now())
         
         context = {
             'article_': article_,
             'category': Category.objects.all(),
             'f_a': first_articles,
             'f_a_b': first_articles_big,
-            'date': date_
+            'date': jalali_converter(datetime.datetime.now())
         }
         return render(request, self.template_name, context)
 
@@ -33,14 +32,15 @@ class DetailBlogView(View):
         article = get_object_or_404(Article, id=pk, slug=slug, status=1)
         last_article = Article.objects.filter(status=1).order_by('-id')[:3]
         article_ = Article.objects.filter(status=1)
-        related_article = Article.objects.get_queryset().filter(category__article=article, status=1).order_by('-id').distinct()[:2]
+        related_article = Article.objects.filter(category__article=article, status=1).distinct()[:2]
 
         context = {
             'article': article,
             'la': last_article,
             'article_': article_,
             'category': Category.objects.all(),
-            'r_a': related_article
+            'r_a': related_article,
+            'date': jalali_converter(datetime.datetime.now())
         }
         return render(request, self.template_name, context)
 
@@ -54,6 +54,7 @@ class SearchFieldView(ListView):
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
         context['article_'] = Article.objects.filter(status=1)
         context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
+        context['date'] = jalali_converter(datetime.datetime.now())
         return context
 
     def get_queryset(self):
@@ -72,6 +73,8 @@ class CategoryView(ListView):
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
         context['article_'] = Article.objects.filter(status=1)
         context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
+        context['date'] = jalali_converter(datetime.datetime.now())
+
         return context
 
     def get_queryset(self):
