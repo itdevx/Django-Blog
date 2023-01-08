@@ -48,6 +48,9 @@
                                         <div class="mb-3">
                                             <label class="form-label">نام شما <span class="text-danger">*</span></label>
                                              {{ form.username }}
+                                             {% for e in  form.username.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                             {% endfor %}
                                         </div>
                                     </div>
 

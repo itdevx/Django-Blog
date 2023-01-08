@@ -104,11 +104,11 @@
                                 {% for c in category %}
                                     <li><a href="/article/{{ c.category_slug }}/" class="sub-menu-item">{{ c.category_name }}</a></li>
                                 {% endfor %}
-                                {% if not request.user.is_authenticated %}
-                                    <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-primary">ورود</a></li>
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item mx-2 text-primary">داشبورد</a></li>
+                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2 text-danger">خروج</a></li>
                                 {% else %}
-                                <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item text-primary">داشبورد</a></li>
-                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item text-danger">خروج</a></li>
+                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2 text-primary">ورود</a></li>
                                 {% endif %}
                             </ul>
                             <!--end navigation menu-->

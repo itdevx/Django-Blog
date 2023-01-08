@@ -19,7 +19,7 @@ class SignInBlogView(View):
     form_class = SignInForm
 
     def get(self, request):
-        form = self.form_class()
+        form = self.form_class
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
@@ -32,6 +32,10 @@ class SignInBlogView(View):
             if user is not None:
                 login(request, user)
                 return redirect('blog:index')
+            else:
+                form.add_error('username', 'نام کاربری یا کلمه عبور اشتباه میباشد')
+        return render(request, self.template_name, {'form': form})
+        
 
 
 class SignUpBlogView(CreateView):
