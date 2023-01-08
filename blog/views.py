@@ -9,10 +9,14 @@ class IndexView(View):
     template_name = 'blog-templates/index-magazine.html'
 
     def get(self, request):
-        article_ = Article.objects.filter(status=1)       
+        article_ = Article.objects.filter(status=1)
+        first_articles = Article.objects.filter(status=1)[:4]
+        first_articles_big = Article.objects.filter(status=1)[4:5]
         context = {
             'article_': article_,
-            'category': Category.objects.all()
+            'category': Category.objects.all(),
+            'f_a': first_articles,
+            'f_a_b': first_articles_big
         }
         return render(request, self.template_name, context)
 
@@ -29,8 +33,8 @@ class DetailBlogView(View):
             'article': article,
             'la': last_article,
             'article_': article_,
+            'category': Category.objects.all(),
         }
-
         return render(request, self.template_name, context)
 
 
@@ -50,7 +54,6 @@ class SearchFieldView(ListView):
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
         context['article_'] = Article.objects.filter(status=1)
         return context
-
 
     def get_queryset(self):
         q = self.request.GET.get('q')
