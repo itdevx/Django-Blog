@@ -1,10 +1,10 @@
-from django.http import Http404, HttpResponse, request
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, View
 from .models import Category, Article
 from django.db.models import Count
 from extentions.utils import jalali_converter
 import datetime
+from random import randint
 
 
 class IndexView(View):
@@ -14,13 +14,18 @@ class IndexView(View):
         article_ = Article.objects.filter(status=1)
         first_articles = Article.objects.filter(status=1)[:4]
         first_articles_big = Article.objects.filter(status=1)[4:5]
-        
+        last_article = Article.objects.filter(status=1)[:6]
+        random_ = randint(1, len(article_))
+        random_article = Article.objects.filter(status=1)[int(random_)]
+        print(random_article.slug)
         context = {
             'article_': article_,
-            'category': Category.objects.all(),
+            'category': Category.objects.all().annotate(articles_count=Count('article')),
             'f_a': first_articles,
             'f_a_b': first_articles_big,
-            'date': jalali_converter(datetime.datetime.now())
+            'date': jalali_converter(datetime.datetime.now()),
+            'l_a': last_article,
+            'r_a': random_article
         }
         return render(request, self.template_name, context)
 

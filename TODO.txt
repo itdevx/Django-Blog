@@ -2,14 +2,14 @@ Article Model :
     title
     slug
     dateField
-    active
+    status
     image
     category
-    # time for read
+    readtime
     author
     description
     # tags
-    # views quantity
+    hit count
 
 Category Model:
     category name
