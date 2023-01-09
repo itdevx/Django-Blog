@@ -14,10 +14,10 @@ class IndexView(View):
         article_ = Article.objects.filter(status=1)
         first_articles = Article.objects.filter(status=1)[:4]
         first_articles_big = Article.objects.filter(status=1)[4:5]
-        last_article = Article.objects.filter(status=1)[:6]
+        last_article = Article.objects.filter(status=1).order_by('-id')[:6]
         random_ = randint(1, len(article_))
         random_article = Article.objects.filter(status=1)[int(random_)]
-        print(random_article.slug)
+
         context = {
             'article_': article_,
             'category': Category.objects.all().annotate(articles_count=Count('article')),
