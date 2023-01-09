@@ -5,6 +5,8 @@ from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
 from blog.models import Article, Category
+from extentions.utils import jalali_converter
+import datetime
 
 
 class SignUpBlogView(View):
@@ -59,7 +61,7 @@ class DashboardBlogView(View):
         else:
             article = Article.objects.filter(author=request.user)
 
-        return render(request, self.template_name, {'article': article})
+        return render(request, self.template_name, {'article': article, 'date': jalali_converter(datetime.datetime.now())})
 
 
 class CreateArticle(FormValidMixins, FieldsMixins, CreateView):

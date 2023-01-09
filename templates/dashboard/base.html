@@ -24,23 +24,17 @@
     <div class="tagline bg-white">
         <div class="container">
             <div class="row justify-content-between align-items-center g-0">
-                <div class="col-lg-10 col-md-9">
+                <div class="col-lg-12 col-md-9">
                     <div class="d-flex justify-content-between align-items-center position-relative overflow-hidden">
-                        <div class="text-slider">
+                        <div class="text-slider bg-dark" style="border-radius: 50px;">
                             <ul class="list-inline mb-0 move-text">
                                 {% for a in article %}
-                                    <li class="mb-0 list-inline-item"><a href="{{ a.get_absolut_url }}" class="text-dark"><i class="ti ti-chevron-right"></i>{{ a.title }}<small class="text-muted"> {{ a.date }} </small> </a></li>
+                                    <li class="mb-0 list-inline-item"><a href="{{ a.get_absolut_url }}" class="text-light"><i class="ti ti-chevron-right"></i>{{ a.title }}<small class="text-muted"></small> </a></li>
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!--end col-->
-
-                <div class="col-lg-2 col-md-3 text-end">
-                    <span class="text-muted">جمعه ، 4 آبان 1401</span>
-                </div>
-                <!--end col-->
             </div>
             <!--end row-->
         </div>
@@ -84,6 +78,11 @@
                         </div>
 
                         <ul class="buy-button list-inline mb-0">
+                            <li class="list-inline-item mb-0">
+                                <div class="col-lg-2 col-md-3 text-end">
+                                    <span class="text-danger"><b>{{ date }}</b></span>
+                                </div>
+                            </li>
                             <li class="list-inline-item mb-0">
                                 <div class="search-bar">
                                     <div id="search" class="menu-search mb-0">
