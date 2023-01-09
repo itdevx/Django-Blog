@@ -1,5 +1,6 @@
 ﻿{% extends 'blog-templates/base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 {% block title %}
 صفحه اصلی
 {% endblock %}
@@ -39,7 +40,7 @@
                                     </div>
 
                                     <div>
-                                        <li class="list-inline-item text-muted"><i class="mx-1 uil uil-eye h5 text-dark"></i>263</li>
+                                        <li class="list-inline-item text-muted"><i class="mx-1 uil uil-eye h5 text-dark"></i>{% get_hit_count for article %}</li>
 
                                     </div>
                                 </div>

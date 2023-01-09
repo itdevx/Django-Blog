@@ -6,6 +6,8 @@ import readtime
 from django.db.models import Q
 from extentions.utils import jalali_converter
 from django.template.defaultfilters import slugify
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
 
 
 class Manager(models.Manager):
@@ -41,6 +43,7 @@ class Article(models.Model):
     description = RichTextField(verbose_name='مقاله')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='دسته بندی')
     objects = Manager()
+    hit_count_generic = GenericRelation(HitCount, object_id_field='article_pk', related_query_name='hit_count_generic_relation')
 
     def __str__(self):
         return self.title

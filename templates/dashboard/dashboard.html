@@ -1,6 +1,6 @@
 {% extends 'dashboard/base.html' %}
-
 {% block title %} داشبورد {% endblock %}
+{% load hitcount_tags %}
 
 {% block body %}
 
@@ -14,6 +14,7 @@
                       <th scope="col">تصویر</th>
                       <th scope="col">تاریخ</th>
                       <th scope="col">وضعیت</th>
+                      <th scope="col">تعداد مشاهده</th>
                       <th scope="col">ویرایش</th>
                     </tr>
                   </thead>
@@ -30,6 +31,7 @@
                           <p class="text-danger">منتشر نشده</p>
                         {% endif %}
                       </td>
+                      <td class="text-center">{% get_hit_count for a %}</td>
                       <td><a href="{% url 'account:update-article' a.id %}">ویرایش</a></td>
                     </tr>
                     {% endfor %}
