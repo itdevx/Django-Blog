@@ -53,6 +53,7 @@ class DetailBlogView(View):
 class SearchFieldView(ListView):
     template_name = 'blog-templates/list-magazine.html'
     context_object_name = 'article'
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,6 +73,7 @@ class SearchFieldView(ListView):
 class CategoryView(ListView):
     template_name = 'blog-templates/list-magazine.html'
     context_object_name = 'article'
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
