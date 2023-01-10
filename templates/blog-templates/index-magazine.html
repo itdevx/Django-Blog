@@ -194,61 +194,19 @@
                     <!--end row-->
 
                     <div class="row border-top mt-4 pt-2">
+                        {% for b in b_a %}
                         <div class="col-md-6 mt-4 pt-2">
                             <div class="card blog blog-primary border-0">
-                                <img src="{% static 'images\agency\5.jpg' %}" class="img-fluid rounded-0 shadow" alt="">
+                                <img src="{{ b.image.url }}" class="img-fluid rounded-0 shadow" alt="">
 
                                 <div class="pt-3">
-                                    <a href="magazine-news-detail.html" class="text-dark h5 title mb-0">بازاریابی موبایل
-                                        ، سنتز آن و 2021 پیش آگهی ارائه می دهد</a>
+                                    <a href="{{ b.get_absolut_url }}" class="text-dark h5 title mb-0">{{ b.title }}</a>
 
-                                    <span class="text-muted mt-2 d-block">1401/08/07</span>
+                                    <span class="text-muted mt-2 d-block">{{ b.get_date }}</span>
                                 </div>
                             </div>
                         </div>
-                        <!--end col-->
-
-                        <div class="col-md-6 mt-4 pt-2">
-                            <div class="card blog blog-primary border-0">
-                                <img src="{% static 'images\agency\6.jpg' %}" class="img-fluid rounded-0 shadow" alt="">
-
-                                <div class="pt-3">
-                                    <a href="magazine-news-detail.html" class="text-dark h5 title mb-0">نگران مهلت ها
-                                        نباشید!ما شما را پوشانده ایم</a>
-
-                                    <span class="text-muted mt-2 d-block">1401/08/07</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-md-6 mt-4 pt-2">
-                            <div class="card blog blog-primary border-0">
-                                <img src="{% static 'images\agency\7.jpg' %}" class="img-fluid rounded-0 shadow" alt="">
-
-                                <div class="pt-3">
-                                    <a href="magazine-news-detail.html" class="text-dark h5 title mb-0">استراتژی خود را
-                                        تغییر دهید: یک مشاور تجاری پیدا کنید</a>
-
-                                    <span class="text-muted mt-2 d-block">1401/08/07</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
-
-                        <div class="col-md-6 mt-4 pt-2">
-                            <div class="card blog blog-primary border-0">
-                                <img src="{% static 'images\agency\8.jpg' %}" class="img-fluid rounded-0 shadow" alt="">
-
-                                <div class="pt-3">
-                                    <a href="magazine-news-detail.html" class="text-dark h5 title mb-0">همه چیز در مورد
-                                        مدل سازی مالی</a>
-
-                                    <span class="text-muted mt-2 d-block">1401/08/07</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end col-->
+                        {% endfor %}
                     </div>
                     <!--end row-->
                 </div>

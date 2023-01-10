@@ -17,6 +17,8 @@ class IndexView(View):
         last_article = Article.objects.filter(status=1).order_by('-id')[:6]
         random_ = randint(1, len(article_))
         random_article = Article.objects.filter(status=1)[int(random_)]
+        # after -> change number
+        bilow_random_article = Article.objects.filter(status=1)[:4]
 
         context = {
             'article_': article_,
@@ -25,7 +27,8 @@ class IndexView(View):
             'f_a_b': first_articles_big,
             'date': jalali_converter(datetime.datetime.now()),
             'l_a': last_article,
-            'r_a': random_article
+            'r_a': random_article,
+            'b_a': bilow_random_article
         }
         return render(request, self.template_name, context)
 
