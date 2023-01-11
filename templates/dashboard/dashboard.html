@@ -38,6 +38,34 @@
                   </tbody>
                 </table>
             </div>
+            <div class="row mt-4 pt-2">
+              <div class="col-12">
+                  <ul class="pagination justify-content-center mb-0">
+                      {% if article.has_previous  %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ article.previous_page_number }}" aria-label="Previous">
+                                  <span aria-hidden="true"><i class="mdi mdi-chevron-left mdi-18px"></i></span>
+                              </a>
+                          </li>
+                      {% endif %}
+                      {% for page in article.paginator.page_range %}
+                          {% if page == article.number %}
+                              <li class="page-item"><a class="page-link active" href="?page={{ page }}">{{ page }}</a></li>
+                          {% else %}
+                              <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                          {% endif %}
+                      {% endfor %}
+                      {% if article.has_next %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ article.next_page_number  }}" aria-label="Next">
+                                  <span aria-hidden="true"><i class="mdi mdi-chevron-right mdi-18px"></i></span>
+                              </a>
+                          </li>
+                      {% endif %}
+                  </ul>
+              </div>
+              <!--end col-->
+          </div>
         </div>
     </section>
 

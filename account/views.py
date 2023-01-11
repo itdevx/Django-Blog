@@ -7,6 +7,7 @@ from .mixins import FormValidMixins, FieldsMixins
 from blog.models import Article, Category
 from extentions.utils import jalali_converter
 import datetime
+from django.core.paginator import Paginator
 
 
 class SignUpBlogView(View):
@@ -58,10 +59,16 @@ class DashboardBlogView(View):
     def get(self, request):
         if request.user.is_superuser:
             article = Article.objects.all()
+            paginator = Paginator(article, 12)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
         else:
             article = Article.objects.filter(author=request.user)
+            paginator = Paginator(article, 12)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
 
-        return render(request, self.template_name, {'article': article, 'date': jalali_converter(datetime.datetime.now())})
+        return render(request, self.template_name, {'article': page_obj, 'date': jalali_converter(datetime.datetime.now())})
 
 
 class CreateArticle(FormValidMixins, FieldsMixins, CreateView):
