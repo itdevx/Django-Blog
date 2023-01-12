@@ -12,11 +12,11 @@ class IndexView(View):
 
     def get(self, request):
         article_ = Article.objects.filter(status=1)
-        first_articles = Article.objects.filter(status=1)[:4]
-        first_articles_big = Article.objects.filter(status=1)[4:5]
+        first_articles = Article.objects.filter(status=1).order_by('-id')[:4]
+        first_articles_big = Article.objects.filter(status=1).order_by('-id')[4:5]
         last_article = Article.objects.filter(status=1).order_by('-id')[:6]
         random_ = randint(1, len(article_))
-        random_article = Article.objects.filter(status=1)[int(random_)]
+        random_article = Article.objects.filter(status=1)[int(random_)-1]   
         # after -> change number
         bilow_random_article = Article.objects.filter(status=1)[:4]
 

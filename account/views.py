@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from gc import get_objects
+from django.forms import fields
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import View, CreateView, UpdateView
+from django.views.generic import View, CreateView, UpdateView, DeleteView
 from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
@@ -88,3 +90,10 @@ class UpdateArticle(FieldsMixins, UpdateView):
         context['article'] = Article.objects.all()
         return context
     
+
+class DeleteArticle(DeleteView):
+    model = Article
+    success_url = reverse_lazy('account:dashboard')
+    
+    def get_object(self):
+        return get_object_or_404(Article, pk=self.kwargs['article_pk'])
