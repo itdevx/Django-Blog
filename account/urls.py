@@ -24,6 +24,6 @@ urlpatterns = [
         'dashboard/update-article/<int:pk>/', UpdateArticle.as_view(), name='update-article'
     ),
     path(
-        'dashboard/delete-article/<article_pk>/', DeleteArticle.as_view(), name='delete-article'
+        'dashboard/delete-article/<pk>/', DeleteArticle.as_view(), name='delete-article'
     )
 ]

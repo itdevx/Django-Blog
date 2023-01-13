@@ -1,5 +1,7 @@
+from cmath import log
 from gc import get_objects
 from django.forms import fields
+from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView, DeleteView
@@ -45,8 +47,17 @@ class SignInBlogView(View):
 
 class SignUpBlogView(CreateView):
     form_class = SignUpForm
-    success_url = reverse_lazy('blog:index')
     template_name = 'authenticate-templates/sign-up.html'
+
+    def form_valid(self, form):
+        form.save()
+        username = self.request.POST['username']
+        password = self.request.POST['password1']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+            return redirect('blog:index')
+        return super().form_valid(form)
 
 
 class SignOutBlogView(View):
@@ -60,7 +71,7 @@ class DashboardBlogView(View):
 
     def get(self, request):
         if request.user.is_superuser:
-            article = Article.objects.all()
+            article = Article.objects.order_by('-date').all()
             paginator = Paginator(article, 12)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
@@ -91,9 +102,7 @@ class UpdateArticle(FieldsMixins, UpdateView):
         return context
     
 
+# bug
 class DeleteArticle(DeleteView):
     model = Article
     success_url = reverse_lazy('account:dashboard')
-    
-    def get_object(self):
-        return get_object_or_404(Article, pk=self.kwargs['article_pk'])
