@@ -1,17 +1,14 @@
-from cmath import log
-from gc import get_objects
-from django.forms import fields
-from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView, DeleteView
-from .forms import SignInForm, SignUpForm
+from .forms import SignInForm, SignUpForm, UpdateProfileForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
 from blog.models import Article, Category
 from extentions.utils import jalali_converter
 import datetime
 from django.core.paginator import Paginator
+from .models import User
 
 
 class SignUpBlogView(View):
@@ -106,3 +103,26 @@ class UpdateArticle(FieldsMixins, UpdateView):
 class DeleteArticle(DeleteView):
     model = Article
     success_url = reverse_lazy('account:dashboard')
+
+
+class UpdateProfile(UpdateView):
+    model = User
+    form_class = UpdateProfileForm
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'dashboard/update-profile.html'
+
+    def form_valid(self, form):
+        if form.is_valid():
+            form.save()
+            return redirect('account:dashboard')
+        return super().form_valid(form)
+
+    def get_object(self):
+        return User.objects.get(pk=self.request.user.id)
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateProfile, self).get_form_kwargs()
+        kwargs.update({
+            'user':self.request.user
+        })
+        return kwargs

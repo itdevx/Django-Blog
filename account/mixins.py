@@ -1,5 +1,3 @@
-
-
 class FormValidMixins():
     def form_valid(self, form):
         if self.request.is_superuser:

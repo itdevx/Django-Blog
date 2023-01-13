@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle, UpdateArticle, DeleteArticle
+from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle, UpdateArticle, DeleteArticle, UpdateProfile
 
 app_name = 'account'
 
@@ -25,5 +25,8 @@ urlpatterns = [
     ),
     path(
         'dashboard/delete-article/<pk>/', DeleteArticle.as_view(), name='delete-article'
+    ),
+    path(
+        'dashboard/update-profile/<int:pk>', UpdateProfile.as_view(), name='update-profile'
     )
 ]
