@@ -111,6 +111,12 @@ class UpdateProfile(UpdateView):
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/update-profile.html'
 
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return super().get_queryset()
+        else:
+            return User.objects.filter(id=self.request.user.id)
+            
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
             self.fields = '__all__'
@@ -128,43 +134,3 @@ class UpdateProfile(UpdateView):
             ]
         return super().dispatch(request, *args, **kwargs)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['article'] = Article.objects.all()
-    #     return context
-
-
-# class UpdateProfile(UpdateView):
-#     model = User
-#     form_class = UpdateProfileForm
-#     success_url = reverse_lazy('account:dashboard')
-#     template_name = 'dashboard/update-profile.html'
-
-#     def form_valid(self, form):
-#         if form.is_valid():
-#             form.save()
-#             return redirect('account:dashboard')
-#         return super().form_valid(form)
-
-#     def get_object(self):
-#         return User.objects.get(pk=self.request.user.id)
-
-#     def get_form_kwargs(self):
-#         kwargs = super(UpdateProfile, self).get_form_kwargs()
-#         kwargs.update({
-#             'user':self.request.user
-#         })
-#         return kwargs
-
-# def update_profile(request, pk):
-#     data = get_object_or_404(User, id=pk)
-#     form = UpdateProfileForm(instance=data)
-#     if request.POST:
-#         form = UpdateProfileForm(request.POST, instance=data)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('account:dashboard')
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'dashboard/update-profile.html', context)
