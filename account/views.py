@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView, DeleteView
-from .forms import SignInForm, SignUpForm, UpdateProfileForm
+from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
 from blog.models import Article, Category
@@ -107,22 +107,64 @@ class DeleteArticle(DeleteView):
 
 class UpdateProfile(UpdateView):
     model = User
-    form_class = UpdateProfileForm
+    fields = '__all__'
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/update-profile.html'
 
-    def form_valid(self, form):
-        if form.is_valid():
-            form.save()
-            return redirect('account:dashboard')
-        return super().form_valid(form)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            self.fields = '__all__'
+        else:
+            self.fields = [
+                'username',
+                'email',
+                'image',
+                'bio',
+                'linkedin',
+                'instagram',
+                'twitter',
+                'githb',
+                'telegram'
+            ]
+        return super().dispatch(request, *args, **kwargs)
 
-    def get_object(self):
-        return User.objects.get(pk=self.request.user.id)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['article'] = Article.objects.all()
+    #     return context
 
-    def get_form_kwargs(self):
-        kwargs = super(UpdateProfile, self).get_form_kwargs()
-        kwargs.update({
-            'user':self.request.user
-        })
-        return kwargs
+
+# class UpdateProfile(UpdateView):
+#     model = User
+#     form_class = UpdateProfileForm
+#     success_url = reverse_lazy('account:dashboard')
+#     template_name = 'dashboard/update-profile.html'
+
+#     def form_valid(self, form):
+#         if form.is_valid():
+#             form.save()
+#             return redirect('account:dashboard')
+#         return super().form_valid(form)
+
+#     def get_object(self):
+#         return User.objects.get(pk=self.request.user.id)
+
+#     def get_form_kwargs(self):
+#         kwargs = super(UpdateProfile, self).get_form_kwargs()
+#         kwargs.update({
+#             'user':self.request.user
+#         })
+#         return kwargs
+
+# def update_profile(request, pk):
+#     data = get_object_or_404(User, id=pk)
+#     form = UpdateProfileForm(instance=data)
+#     if request.POST:
+#         form = UpdateProfileForm(request.POST, instance=data)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('account:dashboard')
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'dashboard/update-profile.html', context)

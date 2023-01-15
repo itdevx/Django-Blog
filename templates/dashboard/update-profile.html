@@ -33,7 +33,9 @@
                                 <p id="error-msg"></p>
                                 <div id="simple-msg"></div>
                                 <div class="row">
-                                    {% if request.user.is_superuser %}
+                                    {{ form|crispy }}
+                                    {{ form.media }}
+                                    <!-- {% if request.user.is_superuser %}
                                         {{ form|crispy }}
                                         {{ form.media }}
                                     {% else %}
@@ -46,7 +48,7 @@
                                         {{ form.twitter }}
                                         {{ form.githb }}
                                         {{ form.telegram }}
-                                    {% endif %}
+                                    {% endif %} -->
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
