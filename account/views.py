@@ -97,7 +97,7 @@ class UpdateArticle(FieldsMixins, UpdateView):
         context = super().get_context_data(**kwargs)
         context['article'] = Article.objects.all()
         return context
-    
+
 
 # bug
 class DeleteArticle(DeleteView):
@@ -125,6 +125,8 @@ class UpdateProfile(UpdateView):
                 'username',
                 'email',
                 'image',
+                'first_name',
+                'last_name',
                 'bio',
                 'linkedin',
                 'instagram',

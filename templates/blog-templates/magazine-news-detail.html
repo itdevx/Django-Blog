@@ -13,12 +13,21 @@
                 <div class="col-md-1 d-none d-md-block">
                     <div class="sticky-bar">
                         <ul class="list-unstyled social-icon social mb-0">
-                            <li class="mt-2"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-instagram"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-github"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-linkedin"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-whatsapp"></i></a></li>
+                            {% if article.author.instagram %}
+                            <li class="mt-2"><a href="{{ article.author.instagram }}" target="_blank" class="rounded"><i class="mdi mdi-instagram"></i></a></li>
+                            {% endif %}
+                            {% if article.author.twitter %}
+                            <li class="mt-2"><a href="{{ article.author.twitter }}" target="_blank" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
+                            {% endif %}
+                            {% if article.author.githb %}
+                            <li class="mt-2"><a href="{{ article.author.githb }}" target="_blank" class="rounded"><i class="mdi mdi-github"></i></a></li>
+                            {% endif %}
+                            {% if article.author.linkedin %}
+                            <li class="mt-2"><a href="{{ article.author.linkedin }}" target="_blank" class="rounded"><i class="mdi mdi-linkedin"></i></a></li>
+                            {% endif %}
+                            {% if article.author.telegram %}
+                            <li class="mt-2"><a href="{{ article.author.telegram }}" target="_blank" class="rounded"><i class="mdi mdi-telegram"></i></a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -32,10 +41,16 @@
 
                                 <div class="d-flex mt-4 pb-4 align-items-center justify-content-between">
                                     <div class="d-flex author align-items-center">
-                                        <img src="{% static 'images\users\user-1.jpg' %}" class="avatar avatar-md-sm rounded-pill" alt="">
+                                        {% if article.author.image %}
+                                            <img src="{{ article.author.image.url }}" class="avatar avatar-md-sm rounded-pill" alt="">
+                                        {% else %}
+                                            <img src="{% static 'images\users\user-1.jpg' %}" class="avatar avatar-md-sm rounded-pill" alt="">
+                                        {% endif %}
                                         <div class="me-2">
                                             <h6 class="user d-block mb-0"><a href="javascript:void(0)" class="text-dark">{{ article.author }}</a></h6>
-                                            <small class="date text-muted mb-0">نویسنده محتوا</small>
+                                            {% if article.author.job %}
+                                            <small class="date text-muted mb-0">{{ article.author.job }}</small>
+                                            {% endif %}
                                         </div>
                                     </div>
 
@@ -124,21 +139,6 @@
                                     </div>
                                 </div>
                                 <!-- RECENT POST -->
-
-        
-                                <div class="widget mt-4 pt-2 text-center">
-                                    <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light">شبکه های مجازی</h6>
-
-                                    <ul class="list-unstyled social-icon tagline-social mb-0 mt-4">
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-instagram"></i></a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-github"></i></a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-linkedin"></i></a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-whatsapp"></i></a></li>
-                                    </ul>
-                                    <!--end icon-->
-                                </div>
                             </div>
                         </div>
                     </div>

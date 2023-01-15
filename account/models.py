@@ -1,3 +1,4 @@
+from re import T
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import os
@@ -17,6 +18,7 @@ def upload_image_path(instance, filename):
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     image = models.ImageField(null=True, blank=True, upload_to=upload_image_path)
+    job = models.CharField(null=True, blank=True, max_length=50)
     bio = models.CharField(null=True, blank=True, max_length=200)
     linkedin = models.CharField(null=True, blank=True, max_length=200)
     instagram = models.CharField(null=True, blank=True, max_length=200)
