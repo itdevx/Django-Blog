@@ -135,4 +135,3 @@ class UpdateProfile(UpdateView):
                 'telegram'
             ]
         return super().dispatch(request, *args, **kwargs)
-
