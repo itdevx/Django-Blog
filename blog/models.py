@@ -35,7 +35,7 @@ STATUS = (
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name='عنوان')
-    slug = models.SlugField(max_length=200,null=True, verbose_name='آدرس')
+    slug = models.SlugField(max_length=200,null=True, verbose_name='آدرس', allow_unicode=True)
     date = models.DateField(auto_now=True, verbose_name='تاریخ')
     status = models.CharField(choices=STATUS, max_length=1, verbose_name='وضعیت')
     image = models.ImageField(upload_to='article-image-intro', verbose_name='تصویر')
@@ -49,7 +49,7 @@ class Article(models.Model):
         return self.title
 
     def get_absolut_url(self):
-        return reverse('blog:detail-article', args=[self.id, self.slug])
+        return reverse('blog:detail-article', args=[self.pk, self.slug])
 
     def get_readtime(self):
         result = readtime.of_text(self.description)
@@ -61,5 +61,5 @@ class Article(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title, allow_unicode=True)
         return super().save(*args, **kwargs)

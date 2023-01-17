@@ -9,7 +9,7 @@ urlpatterns = [
         '', IndexView.as_view(), name='index'
     ),
     path(
-        'article/<int:pk>/<slug:slug>/', DetailBlogView.as_view(), name='detail-article'
+        'article/<int:pk>/<slug>/', DetailBlogView.as_view(), name='detail-article'
     ),
     path(
         'article/<slug>/', CategoryView.as_view(), name='category'
