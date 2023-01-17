@@ -39,9 +39,8 @@
                       <a type="button" class="" style="color: red;" data-toggle="modal" data-target="#exampleModal-{{ a.id }}">
                         پاک کردن
                       </a>
-                      <form action="{% url 'account:delete-article' a.id %}" method="POST">
+                      <form action="{% url 'account:delete-article' pk=a.id %}" method="POST">
                         {% csrf_token %}
-                        <!-- Modal -->
                         <div class="modal fade" id="exampleModal-{{ a.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
