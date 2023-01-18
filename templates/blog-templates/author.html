@@ -1,0 +1,181 @@
+{% extends 'blog-templates/base.html' %}
+{% load static %}
+{% block title %}
+مقالات | {{ author }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- Start -->
+    <section class="bg-half-170 pb-0 d-table w-100">
+        <div class="container">
+            <div class="row justify-content-center" style="margin-top: 70px">
+                <div class="col-lg-9">
+                    <div class="d-md-flex align-items-center border-bottom pb-5">
+                        {% if author.image %}
+                        <img src="{{ author.image.url }}" class="img-fluid rounded-circle shadow-md avatar avatar-medium d-block mx-auto" alt="">
+                        {% else %}
+                        <img src="{% static 'images\users\user-3.jpg' %}" class="img-fluid rounded-circle shadow-md avatar avatar-medium d-block mx-auto" alt="">
+                        {% endif %}
+                        <div class="section-title me-md-4 mt-4 mt-sm-0 text-md-end text-center">
+                            <h4 class="title mb-0">
+                                {% if author.first_name and author.last_name %}
+                                    {{ author.first_name }} {{ author.last_name }}
+                                {% else %}
+                                    {{ author.username }}
+                                {% endif %}
+                            </h4>
+                            <small class="fw-medium text-muted text-uppercase">{{ article.author.job }}</small>
+                            {% if not author.bio %}
+                            <p class="text-muted mt-4">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
+                                استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله </p>
+                            {% else %}
+                            <p class="text-muted mt-4">{{ author.bio }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end section-->
+    <!-- End -->
+
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    <div class="row">
+                        {% for a in article %}
+                        <div class="col-lg-6">
+                            <div class="card border-0 bg-white shadow rounded blog blog-primary overflow-hidden mb-4">
+                                <img src="{{ a.image.url }}" class="img-fluid" alt="">
+                                <div class="card-body">
+                                    <ul class="list-unstyled d-flex align-items-center justify-content-between">
+                                        <li>
+                                            <span class="badge bg-soft rounded-pill">{{ a.category }}</span>
+                                        </li>
+
+                                        <li>
+                                            <span class="text-muted">{{ a.get_date }}</span>
+                                        </li>
+                                    </ul>
+
+                                    <a href="{{ a.get_absolut_url }}" class="text-dark h5 title">{{ a.title }}</a>
+
+                                    <a href="{{ a.get_absolut_url }}" class="read-more d-block mt-3">بیشتر بخوانید <i class="uil uil-arrow-left align-middle"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <!--end row-->
+
+                    <div class="row mt-4 pt-2">
+                        <div class="col-12">
+                            <ul class="pagination justify-content-center mb-0">
+                                {% if page_obj.has_previous  %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                            <span aria-hidden="true"><i class="mdi mdi-chevron-left mdi-18px"></i></span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% for page in page_obj.paginator.page_range %}
+                                    {% if page == page_obj.number %}
+                                        <li class="page-item"><a class="page-link active" href="?page={{ page }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number  }}" aria-label="Next">
+                                            <span aria-hidden="true"><i class="mdi mdi-chevron-right mdi-18px"></i></span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </div>
+                <!--end col-->
+
+                <div class="col-lg-4 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <div class="sidebar sticky-bar ms-lg-4">
+                        <!-- SEARCH -->
+                        <div class="widget">
+                            <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded text-center">جست و جو
+                            </h6>
+                            <div id="search2" class="widget-search mt-4 mb-0">
+                                <form role="search" method="get" id="searchform" action="/search/" class="searchform">
+                                    <div>
+                                        <input type="text" class="border rounded" name="q" id="s" placeholder="گذرواژه">
+                                        <input type="submit" id="searchsubmit" value="Search">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- SEARCH -->
+
+                        <!-- CATAGORIES -->
+                        <div class="widget mt-4 pt-2">
+                            <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded text-center">دسته بندی
+                                ها</h6>
+                            <ul class="list-unstyled mt-4 mb-0 catagories">
+                                {% for c in category %}
+                                    <li class="d-flex justify-content-between"><a href="/article/{{ c.category_slug }}/" class="title text-dark">{{ c.category_name }}</a> <span>{{ c.articles_count }}</span></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- CATAGORIES -->
+
+                        <!-- RECENT POST -->
+                        <div class="widget mt-4 pt-2">
+                            <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded text-center">پست های
+                                اخیر</h6>
+                            <div class="mt-4">
+                                {% for l in last_article %}
+                                <div class="d-flex align-items-center mt-3">
+                                    <img src="{{ l.image.url }}" class="avatar avatar-small rounded" style="width: 100px;" alt="">
+                                    <div class="flex-1 me-3">
+                                        <a href="{{ l.get_absolut_url }}" class="d-block widget-post-title text-dark">{{ l.title }}</a>
+                                        <span class="text-muted">{{ l.get_date }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- RECENT POST -->
+
+                        <!-- TAG CLOUDS -->
+                        <div class="widget mt-4 pt-2 text-center">
+                            <h6 class="widget-title font-weight-bold pt-2 pb-2 bg-light rounded">تگ ها</h6>
+                            <div class="tagcloud mt-4">
+                                <a href="javascript:void(0)" class="rounded text-dark">کسب و کار</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">مالی</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">بازاریابی</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">فشن</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">عروس</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">سبک زندگی</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">مسافرت</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">زیبایی</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">ویدیو</a>
+                                <a href="javascript:void(0)" class="rounded text-dark">صدا</a>
+                            </div>
+                        </div>
+                        <!-- TAG CLOUDS -->
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </section>
+    <!--end section-->
+
+{% endblock %}

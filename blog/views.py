@@ -5,6 +5,7 @@ from django.db.models import Count
 from extentions.utils import jalali_converter
 import datetime
 from random import randint
+from account.models import User
 
 
 class IndexView(View):
@@ -98,3 +99,17 @@ class CategoryView(ListView):
         else:
             return
     
+
+class AuthorView(View):
+    template_name = 'blog-templates/author.html'
+    def get(self, request, username):
+        article = Article.objects.filter(author__username=username).all()
+        context = {
+            'article': article,
+            'category': Category.objects.all().annotate(articles_count=Count('article')),
+            'article_': Article.objects.filter(status=1),
+            'last_article': Article.objects.filter(status=1).order_by('-id')[:3],
+            'date':jalali_converter(datetime.datetime.now()),
+            'author': User.objects.get(username=username)
+        }
+        return render(request, self.template_name, context)

@@ -63,3 +63,6 @@ class Article(models.Model):
         if not self.slug:
             self.slug = slugify(self.title, allow_unicode=True)
         return super().save(*args, **kwargs)
+
+    def get_absolut_author(self):
+        return reverse('blog:author-view', args=[self.author.username])

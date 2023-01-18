@@ -47,7 +47,7 @@
                                             <img src="{% static 'images\users\user-1.jpg' %}" class="avatar avatar-md-sm rounded-pill" alt="">
                                         {% endif %}
                                         <div class="me-2">
-                                            <h6 class="user d-block mb-0"><a href="javascript:void(0)" class="text-dark">{{ article.author }}</a></h6>
+                                            <h6 class="user d-block mb-0"><a href="{{ article.get_absolut_author }}" class="text-dark">{{ article.author }}</a></h6>
                                             {% if article.author.job %}
                                             <small class="date text-muted mb-0">{{ article.author.job }}</small>
                                             {% endif %}
