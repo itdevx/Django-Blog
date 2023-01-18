@@ -100,16 +100,21 @@ class CategoryView(ListView):
             return
     
 
-class AuthorView(View):
+class AuthorView(ListView):
     template_name = 'blog-templates/author.html'
-    def get(self, request, username):
-        article = Article.objects.filter(author__username=username).all()
-        context = {
-            'article': article,
-            'category': Category.objects.all().annotate(articles_count=Count('article')),
-            'article_': Article.objects.filter(status=1),
-            'last_article': Article.objects.filter(status=1).order_by('-id')[:3],
-            'date':jalali_converter(datetime.datetime.now()),
-            'author': User.objects.get(username=username)
-        }
-        return render(request, self.template_name, context)
+    context_object_name = 'article'
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
+        context['article_'] = Article.objects.filter(status=1)
+        context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
+        context['date'] = jalali_converter(datetime.datetime.now()),
+        context['author'] = User.objects.get(username=self.kwargs['username'])
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        return Article.objects.filter(author__username=self.kwargs['username']).all()
+        
+        
