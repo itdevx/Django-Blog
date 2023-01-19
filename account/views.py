@@ -9,6 +9,13 @@ from extentions.utils import jalali_converter
 import datetime
 from django.core.paginator import Paginator
 from .models import User
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.views.generic.edit import FormView
+from django.utils.decorators import method_decorator
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 
 
 class SignUpBlogView(View):
@@ -135,3 +142,25 @@ class UpdateProfile(UpdateView):
                 'telegram'
             ]
         return super().dispatch(request, *args, **kwargs)
+
+
+class ChangePassword(FormView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'dashboard/change-password.html'
+
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        update_session_auth_hash(self.request, form.user)
+        return super().form_valid(form)

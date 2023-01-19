@@ -116,5 +116,3 @@ class AuthorView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         return Article.objects.filter(author__username=self.kwargs['username']).all()
-        
-        
