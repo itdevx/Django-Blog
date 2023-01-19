@@ -16,13 +16,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
-
-
-class SignUpBlogView(View):
-    template_name = 'authenticate-templates/sign-up.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class SignInBlogView(View):
@@ -70,7 +64,8 @@ class SignOutBlogView(View):
         return redirect('blog:index')
         
 
-class DashboardBlogView(View):
+class DashboardBlogView(LoginRequiredMixin, View):
+    login_url = 'account:sign-in'
     template_name = 'dashboard/dashboard.html'
 
     def get(self, request):
@@ -88,17 +83,19 @@ class DashboardBlogView(View):
         return render(request, self.template_name, {'article': page_obj, 'date': jalali_converter(datetime.datetime.now())})
 
 
-class CreateArticle(FormValidMixins, FieldsMixins, CreateView):
+class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateView):
     model = Article
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/create-article.html'
+    login_url = 'account:sign-in'
 
 
-class UpdateArticle(FieldsMixins, UpdateView):
+class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
     model = Article
     fields = '__all__'
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/update-article.html'
+    login_url = 'account:sign-in'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -107,16 +104,18 @@ class UpdateArticle(FieldsMixins, UpdateView):
 
 
 # bug
-class DeleteArticle(DeleteView):
+class DeleteArticle(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('account:dashboard')
+    login_url = 'account:sign-in'
 
 
-class UpdateProfile(UpdateView):
+class UpdateProfile(LoginRequiredMixin, UpdateView):
     model = User
     fields = '__all__'
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/update-profile.html'
+    login_url = 'account:sign-in'
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -144,10 +143,11 @@ class UpdateProfile(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ChangePassword(FormView):
+class ChangePassword(LoginRequiredMixin, FormView):
     form_class = PasswordChangeForm
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/change-password.html'
+    login_url = 'account:sign-in'
 
     @method_decorator(sensitive_post_parameters())
     @method_decorator(csrf_protect)
@@ -164,3 +164,4 @@ class ChangePassword(FormView):
         form.save()
         update_session_auth_hash(self.request, form.user)
         return super().form_valid(form)
+        
