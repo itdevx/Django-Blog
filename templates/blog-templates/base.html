@@ -154,7 +154,7 @@
                             </div>
                             <!--end col-->
 
-                            <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <!-- <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="footer-head">شرکت</h5>
                                 <ul class="list-unstyled footer-list mt-4">
                                     <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> درباره ما</a></li>
@@ -163,17 +163,15 @@
                                     <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> قیمت</a></li>
                                     <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> پروژه</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <!--end col-->
 
                             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                                <h5 class="footer-head">لینک های مفید</h5>
+                                <h5 class="footer-head">دسته بندی ها</h5>
                                 <ul class="list-unstyled footer-list mt-4">
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> شرایط خدمات</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> خط مشی</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> مستندات</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> تغییرات</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> اجزاء</a></li>
+                                    {% for c in category %}
+                                    <li><a href="/article/{{ c.category_slug }}/" class="text-foot"><i class="ti ti-chevron-left me-1"></i>{{ c.category_name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <!--end col-->
