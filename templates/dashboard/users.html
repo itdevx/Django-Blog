@@ -1,0 +1,61 @@
+{% extends 'dashboard/base.html' %}
+{% block title %} داشبورد {% endblock %}
+{% load hitcount_tags %}
+
+{% block body %}
+
+    <section class="magazine-hero section-two">
+        <div class="container">
+            <div class="row">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">نام و نام خانوادگی</th>
+                      <th scope="col">نام کاربری</th>
+                      <th scope="col">ایمیل</th>
+                      <th scope="col">تاریخ عضویت</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for a in users %}
+                        <tr class="text-end">
+                            <td>{{ a.first_name }} {{ a.last_name }}</td>
+                            <td>{{ a.username }}</td>                      
+                            <td>{{ a.email }}</td>
+                            <td>{{ a.date_joined }}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+            <!-- <div class="row mt-4 pt-2">
+                <div class="col-12">
+                    <ul class="pagination justify-content-center mb-0">
+                        {% if article.has_previous  %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ article.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true"><i class="mdi mdi-chevron-left mdi-18px"></i></span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% for page in article.paginator.page_range %}
+                            {% if page == article.number %}
+                                <li class="page-item"><a class="page-link active" href="?page={{ page }}">{{ page }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if article.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ article.next_page_number  }}" aria-label="Next">
+                                    <span aria-hidden="true"><i class="mdi mdi-chevron-right mdi-18px"></i></span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+{% endblock %}

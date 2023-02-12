@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView, DeleteView
+from django.http import Http404
 from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
@@ -164,4 +165,19 @@ class ChangePassword(LoginRequiredMixin, FormView):
         form.save()
         update_session_auth_hash(self.request, form.user)
         return super().form_valid(form)
+
+
+class AllUserDashboard(View):
+    template_name = 'dashboard/users.html'
+
+    def get(self, request):
+        if request.user.is_superuser:
+            users = User.objects.all()
+            context = {
+                'users': users
+            }
+        else:
+            raise Http404()
+
+        return render(request, self.template_name, context)
         
