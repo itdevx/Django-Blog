@@ -26,7 +26,7 @@ class SignInBlogView(View):
 
     def get(self, request):
         form = self.form_class
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'date': jalali_converter(datetime.datetime.now())})
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -40,7 +40,7 @@ class SignInBlogView(View):
                 return redirect('blog:index')
             else:
                 form.add_error('username', 'نام کاربری یا کلمه عبور اشتباه میباشد')
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'date': jalali_converter(datetime.datetime.now())})
         
 
 
@@ -58,12 +58,17 @@ class SignUpBlogView(CreateView):
             return redirect('blog:index')
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
+
 
 class SignOutBlogView(View):
     def get(self, request):
         logout(request)
         return redirect('account:sign-in')
-        
+
 
 class DashboardBlogView(LoginRequiredMixin, View):
     login_url = 'account:sign-in'
@@ -90,6 +95,10 @@ class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateVie
     template_name = 'dashboard/create-article.html'
     login_url = 'account:sign-in'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+
 
 class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
     model = Article
@@ -104,10 +113,10 @@ class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
         else:
             raise Http404()
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article'] = Article.objects.all()
+        context['date'] = jalali_converter(datetime.datetime.now())
         return context
 
 
@@ -127,8 +136,8 @@ class DeleteArticle(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article'] = Article.objects.all()
+        context['date'] = jalali_converter(datetime.datetime.now())
         return context
-
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
@@ -163,6 +172,11 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
             ]
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
+
 
 class ChangePassword(LoginRequiredMixin, FormView):
     form_class = PasswordChangeForm
@@ -186,6 +200,11 @@ class ChangePassword(LoginRequiredMixin, FormView):
         update_session_auth_hash(self.request, form.user)
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
+
 
 class AllUserDashboard(View):
     template_name = 'dashboard/users.html'
@@ -198,3 +217,4 @@ class AllUserDashboard(View):
             page_obj = paginator.get_page(page_number)
         
         return render(request, self.template_name, {'users': page_obj, 'date': jalali_converter(datetime.datetime.now())})
+    
