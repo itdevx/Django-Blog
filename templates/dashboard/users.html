@@ -27,33 +27,33 @@
                   </tbody>
                 </table>
             </div>
-            <!-- <div class="row mt-4 pt-2">
+            <div class="row mt-4 pt-2">
                 <div class="col-12">
                     <ul class="pagination justify-content-center mb-0">
-                        {% if article.has_previous  %}
+                        {% if users.has_previous  %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ article.previous_page_number }}" aria-label="Previous">
+                                <a class="page-link" href="?page={{ users.previous_page_number }}" aria-label="Previous">
                                     <span aria-hidden="true"><i class="mdi mdi-chevron-left mdi-18px"></i></span>
                                 </a>
                             </li>
                         {% endif %}
-                        {% for page in article.paginator.page_range %}
-                            {% if page == article.number %}
+                        {% for page in users.paginator.page_range %}
+                            {% if page == users.number %}
                                 <li class="page-item"><a class="page-link active" href="?page={{ page }}">{{ page }}</a></li>
                             {% else %}
                                 <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
                             {% endif %}
                         {% endfor %}
-                        {% if article.has_next %}
+                        {% if users.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ article.next_page_number  }}" aria-label="Next">
+                                <a class="page-link" href="?page={{ users.next_page_number  }}" aria-label="Next">
                                     <span aria-hidden="true"><i class="mdi mdi-chevron-right mdi-18px"></i></span>
                                 </a>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
-            </div> -->
+            </div>
         </div>
     </section>
 

@@ -62,7 +62,7 @@ class SignUpBlogView(CreateView):
 class SignOutBlogView(View):
     def get(self, request):
         logout(request)
-        return redirect('blog:index')
+        return redirect('account:sign-in')
         
 
 class DashboardBlogView(LoginRequiredMixin, View):
@@ -98,6 +98,13 @@ class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
     template_name = 'dashboard/update-article.html'
     login_url = 'account:sign-in'
 
+    def get_queryset(self):
+        if self.request.user == Article.author or self.request.user.is_superuser:
+            return super().get_queryset()
+        else:
+            raise Http404()
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article'] = Article.objects.all()
@@ -112,7 +119,10 @@ class DeleteArticle(LoginRequiredMixin, DeleteView):
     context_object_name = 'a'   
 
     def get_queryset(self):
-        return Article.objects.filter(id=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
+        if self.request.user.is_superuser:
+            return Article.objects.filter(id=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
+        else:
+            raise Http404()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -182,12 +192,9 @@ class AllUserDashboard(View):
 
     def get(self, request):
         if request.user.is_superuser:
-            users = User.objects.all()
-            context = {
-                'users': users
-            }
-        else:
-            raise Http404()
-
-        return render(request, self.template_name, context)
+            users = User.objects.order_by('-id').all()
+            paginator = Paginator(users, 12)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
         
+        return render(request, self.template_name, {'users': page_obj, 'date': jalali_converter(datetime.datetime.now())})

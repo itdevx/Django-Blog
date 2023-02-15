@@ -29,7 +29,7 @@
                         <div class="text-slider bg-dark" style="border-radius: 50px;">
                             <ul class="list-inline mb-0 move-text">
                                 {% for a in article_ %}
-                                    <li class="mb-0 list-inline-item"><a href="{{ a.get_absolut_url }}" class="text-light"><i class="ti ti-chevron-right"></i>{{ a.title }}<small class="text-muted"></small> </a></li>
+                                    <li class="mb-0 list-inline-item"><a href="{{ a.get_absolut_url }}" class="text-light"><i class="mx-2">---</i>{{ a.title }}<small class="text-muted"></small></a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -106,7 +106,7 @@
                                 {% endfor %}
                                 {% if request.user.is_authenticated %}
                                 <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item mx-2 text-primary">داشبورد</a></li>
-                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2" style="color: red;">خروج</a></li>
+                                <li><a href="{% url 'account:sign-out' %}" class="sub-menu-item mx-2" style="color: red;">خروج</a></li>
                                 {% else %}
                                 <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2 text-primary">ورود</a></li>
                                 <li><a href="{% url 'account:sign-up' %}" class="sub-menu-item mx-2 text-primary">ثبت نام</a></li>
