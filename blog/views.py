@@ -110,8 +110,8 @@ class AuthorView(ListView):
         context['category'] = Category.objects.all().annotate(articles_count=Count('article'))
         context['article_'] = Article.objects.filter(status=1)
         context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
-        context['date'] = jalali_converter(datetime.datetime.now()),
         context['author'] = User.objects.get(username=self.kwargs['username'])
+        context['date'] = jalali_converter(datetime.datetime.now()),
         return context
 
     def get_queryset(self, *args, **kwargs):

@@ -24,7 +24,7 @@ urlpatterns = [
         'dashboard/update-article/<int:pk>/', UpdateArticle.as_view(), name='update-article'
     ),
     path(
-        'dashboard/delete-article/<str:pk>/', DeleteArticle.as_view(), name='delete-article'
+        'dashboard/delete-article/<pk>/<slug>', DeleteArticle.as_view(), name='delete-article'
     ),
     path(
         'dashboard/update-profile/<int:pk>', UpdateProfile.as_view(), name='update-profile'

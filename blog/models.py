@@ -43,7 +43,7 @@ class Article(models.Model):
     description = RichTextField(verbose_name='مقاله')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='دسته بندی')
     objects = Manager()
-    hit_count_generic = GenericRelation(HitCount, object_id_field='article_pk', related_query_name='hit_count_generic_relation')
+    hit_count_generic = GenericRelation(HitCount, object_id_field='pk', related_query_name='hit_count_generic_relation')
 
     def __str__(self):
         return self.title
@@ -66,3 +66,6 @@ class Article(models.Model):
 
     def get_absolut_author(self):
         return reverse('blog:author-view', args=[self.author.username])
+    
+    def get_url_for_delete(self):
+        return reverse('account:delete-article', args=[self.id, self.slug])

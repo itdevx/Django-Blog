@@ -106,7 +106,7 @@
                                 {% endfor %}
                                 {% if request.user.is_authenticated %}
                                 <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item mx-2 text-primary">داشبورد</a></li>
-                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2 text-danger">خروج</a></li>
+                                <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2" style="color: red;">خروج</a></li>
                                 {% else %}
                                 <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2 text-primary">ورود</a></li>
                                 <li><a href="{% url 'account:sign-up' %}" class="sub-menu-item mx-2 text-primary">ثبت نام</a></li>
@@ -148,18 +148,6 @@
                                 </ul>
                                 <!--end icon-->
                             </div>
-                            <!--end col-->
-
-                            <!-- <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                                <h5 class="footer-head">شرکت</h5>
-                                <ul class="list-unstyled footer-list mt-4">
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> درباره ما</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> خدمات</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> تیم</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> قیمت</a></li>
-                                    <li><a href="javascript:void(0)" class="text-foot"><i class="ti ti-chevron-left me-1"></i> پروژه</a></li>
-                                </ul>
-                            </div> -->
                             <!--end col-->
 
                             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">

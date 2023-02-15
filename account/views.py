@@ -106,9 +106,19 @@ class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
 
 # bug
 class DeleteArticle(LoginRequiredMixin, DeleteView):
-    model = Article
+    template_name = 'dashboard/delete-article.html'
     success_url = reverse_lazy('account:dashboard')
     login_url = 'account:sign-in'
+    context_object_name = 'a'   
+
+    def get_queryset(self):
+        return Article.objects.filter(id=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['article'] = Article.objects.all()
+        return context
+
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
