@@ -12,7 +12,14 @@ class FormValidMixins():
 class FieldsMixins():
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
-            self.fields = '__all__'
+            self.fields = [
+                'title',
+                'status',
+                'image',
+                'author',
+                'description',
+                'category'
+            ]
         else:
             self.fields = [
                 'title',

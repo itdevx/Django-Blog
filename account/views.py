@@ -98,6 +98,7 @@ class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
+        return context
 
 
 class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
@@ -217,4 +218,3 @@ class AllUserDashboard(View):
             page_obj = paginator.get_page(page_number)
         
         return render(request, self.template_name, {'users': page_obj, 'date': jalali_converter(datetime.datetime.now())})
-    

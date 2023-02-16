@@ -5,7 +5,7 @@ from django.urls import reverse
 import readtime
 from django.db.models import Q
 from extentions.utils import jalali_converter
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 
@@ -35,7 +35,7 @@ STATUS = (
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name='عنوان')
-    slug = models.SlugField(max_length=200,null=True, verbose_name='آدرس', allow_unicode=True)
+    slug = models.SlugField(null=True, blank=True, unique=True, allow_unicode=True, max_length=255)
     date = models.DateField(auto_now=True, verbose_name='تاریخ')
     status = models.CharField(choices=STATUS, max_length=1, verbose_name='وضعیت')
     image = models.ImageField(upload_to='article-image-intro', verbose_name='تصویر')
@@ -44,6 +44,10 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='دسته بندی')
     objects = Manager()
     hit_count_generic = GenericRelation(HitCount, object_id_field='pk', related_query_name='hit_count_generic_relation')
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title, allow_unicode=True)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -58,11 +62,6 @@ class Article(models.Model):
     
     def get_date(self):
         return jalali_converter(self.date)
-    
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title, allow_unicode=True)
-        return super().save(*args, **kwargs)
 
     def get_absolut_author(self):
         return reverse('blog:author-view', args=[self.author.username])
