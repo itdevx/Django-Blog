@@ -229,16 +229,10 @@ class EditUserDashboard(UpdateView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
-    # def get_object(self):
-    #     object = get_object_or_404(User, username=self.kwargs.get('username'))
-    #     if self.request.user.is_superuser or self.request.username == object.username:
-    #         return object
-    #     else:
-    #         raise Http404()
-
     def dispatch(self, request, username, *args, **kwargs):
         user = get_object_or_404(User, username=username)
         if request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404()
+            

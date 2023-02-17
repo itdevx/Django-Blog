@@ -13,6 +13,7 @@
                       <th scope="col">نام کاربری</th>
                       <th scope="col">ایمیل</th>
                       <th scope="col">تاریخ عضویت</th>
+                      <th scope="col">آخرین ورود</th>
                       <th scope="col">وضعیت</th>
                     </tr>
                   </thead>
@@ -22,7 +23,8 @@
                             <td>{{ a.first_name }} {{ a.last_name }}</td>
                             <td>{{ a.username }}</td>                      
                             <td>{{ a.email }}</td>
-                            <td>{{ a.date_joined }}</td>
+                            <td>{{ a.get_date_join }}</td>
+                            <td>{{ a.last_login.time }} | {{ a.get_last_login }}</td>
                             <td><a href="{% url 'account:edit-user' a.username %}">ویرایش</a></td>
                         </tr>
                     {% endfor %}

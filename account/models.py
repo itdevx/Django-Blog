@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import os
-from django.urls import reverse
+from extentions.utils import jalali_converter
 
 
 def get_filename_ext(filepath):
@@ -26,5 +26,8 @@ class User(AbstractUser):
     githb = models.CharField(null=True, blank=True, max_length=200)
     telegram = models.CharField(null=True, blank=True, max_length=200)
 
-    def get_user_for_edit(self):
-        return reverse('account:all-users', args=[self.username])
+    def get_date_join(self):
+        return jalali_converter(self.date_joined)
+
+    def get_last_login(self):
+        return jalali_converter(self.last_login.date())
