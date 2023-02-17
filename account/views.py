@@ -1,11 +1,11 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView, DeleteView
 from django.http import Http404
 from .forms import SignInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
-from blog.models import Article, Category
+from blog.models import Article
 from extentions.utils import jalali_converter
 import datetime
 from django.core.paginator import Paginator

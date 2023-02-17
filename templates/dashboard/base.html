@@ -103,9 +103,7 @@
                             <!-- Navigation Menu-->
                             <ul class="navigation-menu nav-left">
                                 <li><a href="{% url 'blog:index' %}" class="sub-menu-item ps-lg-0">خانه</a></li>
-                                {% if requser.user.is_authenticated %}
                                 <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item ps-lg-0">داشبورد</a></li>
-                                {% endif %}
                                 {% if request.user.is_superuser %}
                                 <li><a href="{% url 'account:all-users' %}" class="sub-menu-item ps-lg-0">کاربران</a></li>
                                 {% endif %}
