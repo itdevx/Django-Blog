@@ -26,3 +26,12 @@ class SignUpForm(UserCreationForm):
             'password1',
             'password2'
         ]
+
+
+
+
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'
+        

@@ -1,7 +1,7 @@
-from re import T
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import os
+from django.urls import reverse
 
 
 def get_filename_ext(filepath):
@@ -25,3 +25,6 @@ class User(AbstractUser):
     twitter = models.CharField(null=True, blank=True, max_length=200)
     githb = models.CharField(null=True, blank=True, max_length=200)
     telegram = models.CharField(null=True, blank=True, max_length=200)
+
+    def get_user_for_edit(self):
+        return reverse('account:all-users', args=[self.username])

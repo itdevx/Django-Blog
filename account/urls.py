@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle, UpdateArticle, DeleteArticle, UpdateProfile, ChangePassword, AllUserDashboard
+from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle, UpdateArticle, DeleteArticle, UpdateProfile, ChangePassword, AllUserDashboard, EditUserDashboard
 
 app_name = 'account'
 
@@ -34,5 +34,8 @@ urlpatterns = [
     ),
     path(
         'dashboard/all-users', AllUserDashboard.as_view(), name='all-users'
+    ),
+    path(
+        'dashboard/edit-user/@<username>/', EditUserDashboard.as_view(), name='edit-user'
     )
 ]

@@ -13,6 +13,7 @@
                       <th scope="col">نام کاربری</th>
                       <th scope="col">ایمیل</th>
                       <th scope="col">تاریخ عضویت</th>
+                      <th scope="col">وضعیت</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -22,6 +23,7 @@
                             <td>{{ a.username }}</td>                      
                             <td>{{ a.email }}</td>
                             <td>{{ a.date_joined }}</td>
+                            <td><a href="{% url 'account:edit-user' a.username %}">ویرایش</a></td>
                         </tr>
                     {% endfor %}
                   </tbody>

@@ -22,7 +22,7 @@
                   <tbody>
                     {% for a in article %}
                     <tr class="text-end">
-                      <td><a href="{{ a.get_absolut_url }}">{{ a.title }}</a></td>
+                      <td>{% if a.status == '1' %} <a href="{{ a.get_absolut_url }}">{{ a.title }}</a>{% else %} <p class="text-danger">{{ a.title }}</p> {% endif %}</td>
                       <td><img src="{{ a.image.url }}" width="100" alt=""></td>
                       <td>{{ a.get_date }}</td>
                       <td>

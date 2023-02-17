@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView, DeleteView
 from django.http import Http404
-from .forms import SignInForm, SignUpForm
+from .forms import SignInForm, SignUpForm, EditUserForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import FormValidMixins, FieldsMixins
 from blog.models import Article
@@ -216,5 +216,29 @@ class AllUserDashboard(View):
             paginator = Paginator(users, 12)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-        
+        else:
+            raise Http404()
         return render(request, self.template_name, {'users': page_obj, 'date': jalali_converter(datetime.datetime.now())})
+
+
+class EditUserDashboard(UpdateView):
+    model = User
+    form_class = EditUserForm
+    template_name = 'dashboard/edit-user.html'
+    success_url = reverse_lazy('account:all-users')
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+
+    # def get_object(self):
+    #     object = get_object_or_404(User, username=self.kwargs.get('username'))
+    #     if self.request.user.is_superuser or self.request.username == object.username:
+    #         return object
+    #     else:
+    #         raise Http404()
+
+    def dispatch(self, request, username, *args, **kwargs):
+        user = get_object_or_404(User, username=username)
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404()
