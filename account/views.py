@@ -18,6 +18,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from blog.models import Category
 
 
 class SignInBlogView(View):
@@ -100,6 +101,24 @@ class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateVie
         context['date'] = jalali_converter(datetime.datetime.now())
         return context
 
+
+class CreateCategory(LoginRequiredMixin, CreateView):
+    model = Category
+    fields = ['category_name']
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'dashboard/create-category.html'
+    login_url = 'account:sign-in'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404()
 
 class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
     model = Article

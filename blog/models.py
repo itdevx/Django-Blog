@@ -20,8 +20,12 @@ class Manager(models.Manager):
         
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=100)
-    category_slug = models.SlugField(max_length=100)
+    category_name = models.CharField(max_length=100, verbose_name=' دسته بندی را وارد کنید')
+    category_slug = models.SlugField(max_length=100, unique=True, allow_unicode=True)
+
+    def save(self, *args, **kwargs):
+        self.category_slug = slugify(self.category_name, allow_unicode=True)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.category_name

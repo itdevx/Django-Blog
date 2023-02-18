@@ -108,6 +108,9 @@
                                 <li><a href="{% url 'account:all-users' %}" class="sub-menu-item ps-lg-0">کاربران</a></li>
                                 {% endif %}
                                 <li><a href="{% url 'account:create-article' %}" class="sub-menu-item">ایجاد مقاله</a></li>
+                                {% if request.user.is_superuser %}
+                                <li><a href="{% url 'account:create-category' %}" class="sub-menu-item">ایجاد دسته بندی</a></li>
+                                {% endif %}
                                 <li><a href="{% url 'account:update-profile' request.user.username %}" class="sub-menu-item">پروفایل</a></li>
                                 <li><a href="{% url 'account:change-password' %}" class="sub-menu-item">تغییر رمزعبور</a></li>
                                 <li><a href="{% url 'account:sign-out' %}" class="sub-menu-item" style="color: red;">خروج</a></li>
