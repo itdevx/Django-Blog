@@ -43,11 +43,29 @@
                                         </div>
                                     </div>
                                 </div>
+                                <table class="table mt-5">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">نام دسته بندی</th>
+                                        <th scope="col">وضعیت</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for c in category %}
+                                          <tr class="text-end">
+                                              <td>{{ c.category_name }}</td>
+                                              <td><a href="{% url 'account:update-category' c.category_slug %}">ویرایش</a></td>                      
+                                          </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                </table>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+>
 {% endblock %}

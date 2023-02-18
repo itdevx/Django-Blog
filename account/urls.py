@@ -1,5 +1,19 @@
 from django.urls import path
-from .views import SignUpBlogView, DashboardBlogView, SignInBlogView, SignOutBlogView, CreateArticle, UpdateArticle, DeleteArticle, UpdateProfile, ChangePassword, AllUserDashboard, EditUserDashboard, CreateCategory
+from .views import (
+    SignUpBlogView,
+    DashboardBlogView,
+    SignInBlogView,
+    SignOutBlogView,
+    CreateArticle,
+    UpdateArticle,
+    DeleteArticle,
+    UpdateProfile,
+    ChangePassword,
+    AllUserDashboard,
+    EditUserDashboard,
+    CreateCategory,
+    UpdateCategory
+    )
 
 app_name = 'account'
 
@@ -22,6 +36,9 @@ urlpatterns = [
     ),
     path(
         'dashboard/create-category/', CreateCategory.as_view(), name='create-category'
+    ),
+    path(
+        'dashboard/update-category/<category_slug>', UpdateCategory.as_view(), name='update-category'
     ),
     path(
         'dashboard/update-article/<int:pk>/', UpdateArticle.as_view(), name='update-article'

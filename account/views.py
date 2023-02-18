@@ -102,24 +102,6 @@ class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateVie
         return context
 
 
-class CreateCategory(LoginRequiredMixin, CreateView):
-    model = Category
-    fields = ['category_name']
-    success_url = reverse_lazy('account:dashboard')
-    template_name = 'dashboard/create-category.html'
-    login_url = 'account:sign-in'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['date'] = jalali_converter(datetime.datetime.now())
-        return context
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return super().dispatch(request, *args, **kwargs)
-        else:
-            raise Http404()
-
 class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
     model = Article
     fields = '__all__'
@@ -140,7 +122,6 @@ class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
         return context
 
 
-# bug
 class DeleteArticle(LoginRequiredMixin, DeleteView):
     template_name = 'dashboard/delete-article.html'
     success_url = reverse_lazy('account:dashboard')
@@ -158,6 +139,47 @@ class DeleteArticle(LoginRequiredMixin, DeleteView):
         context['article'] = Article.objects.all()
         context['date'] = jalali_converter(datetime.datetime.now())
         return context
+
+
+class CreateCategory(LoginRequiredMixin, CreateView):
+    model = Category
+    fields = ['category_name']
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'dashboard/create-category.html'
+    login_url = 'account:sign-in'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        context['category'] = Category.objects.all()
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404()
+
+
+class UpdateCategory(LoginRequiredMixin, UpdateView):
+    model = Category
+    fields = '__all__' 
+    success_url = reverse_lazy('account:create-category')
+    template_name = 'dashboard/update-category.html'
+    login_url = 'account:sign-in'
+    slug_field = 'category_slug'
+    slug_url_kwarg = 'category_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404()
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
