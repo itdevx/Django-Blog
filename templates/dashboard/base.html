@@ -48,7 +48,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <a href="index-2.html">
+                    <a href="{% url 'blog:index' %}">
                         <img src="{% static 'images\IT-TECH.png' %}" height="30" class="mx-auto d-block" alt="">
                     </a>
                 </div>
@@ -82,7 +82,7 @@
                         <ul class="buy-button list-inline mb-0">
                             <li class="list-inline-item mb-0">
                                 <div class="col-lg-2 col-md-3 text-end">
-                                    <span class="text-danger"><b>{{ date }}</b></span>
+                                    <span class="text-dark"><b>{{ date }}</b></span>
                                 </div>
                             </li>
                             <li class="list-inline-item mb-0">

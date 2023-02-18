@@ -43,7 +43,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <a href="index-2.html">
+                    <a href="{% url 'blog:index' %}">
                         <img src="{% static 'images\IT-TECH.png' %}" height="30" class="mx-auto d-block" alt="">
                     </a>
                 </div>
@@ -80,7 +80,7 @@
                         <ul class="buy-button list-inline mb-0">
                             <li class="list-inline-item mb-0">
                                 <div class="col-lg-2 col-md-3 text-end">
-                                    <span class="text-danger"><b>{{ date }}</b></span>
+                                    <span class="text-dark"><b>{{ date }}</b></span>
                                 </div>
                             </li>
                             <li class="list-inline-item mb-0">
@@ -136,8 +136,8 @@
                     <div class="footer-py-60">
                         <div class="row">
                             <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
-                                <a href="#" class="logo-footer">
-                                    <img src="{% static 'images\logo-light.png' %}" height="22" alt="">
+                                <a href="{% url 'blog:index' %}" class="logo-footer">
+                                    <img src="{% static 'images\IT-TECH-light.png' %}" height="22" alt="">
                                 </a>
 
                                 <p class="mt-4">پروژه های طراحی ما تازه و ساده هستند و سود زیادی برای کسب و کار شما

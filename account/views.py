@@ -278,4 +278,8 @@ class EditUserDashboard(UpdateView):
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404()
-            
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context

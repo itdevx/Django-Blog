@@ -16,15 +16,15 @@ def upload_image_path(instance, filename):
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, verbose_name='ایمیل')
     image = models.ImageField(null=True, blank=True, upload_to=upload_image_path)
-    job = models.CharField(null=True, blank=True, max_length=50)
-    bio = models.CharField(null=True, blank=True, max_length=200)
-    linkedin = models.CharField(null=True, blank=True, max_length=200)
-    instagram = models.CharField(null=True, blank=True, max_length=200)
-    twitter = models.CharField(null=True, blank=True, max_length=200)
-    githb = models.CharField(null=True, blank=True, max_length=200)
-    telegram = models.CharField(null=True, blank=True, max_length=200)
+    job = models.CharField(null=True, blank=True, max_length=50, verbose_name='شغل')
+    bio = models.CharField(null=True, blank=True, max_length=200, verbose_name='بیوگرافی')
+    linkedin = models.CharField(null=True, blank=True, max_length=200, verbose_name='لینکدین')
+    instagram = models.CharField(null=True, blank=True, max_length=200, verbose_name='اینستاگرام')
+    twitter = models.CharField(null=True, blank=True, max_length=200, verbose_name='توئیتر')
+    githb = models.CharField(null=True, blank=True, max_length=200, verbose_name='گیت هاب')
+    telegram = models.CharField(null=True, blank=True, max_length=200, verbose_name='تلگرام')
 
     def get_date_join(self):
         return jalali_converter(self.date_joined)
