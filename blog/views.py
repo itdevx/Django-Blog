@@ -111,7 +111,8 @@ class AuthorView(ListView):
         context['article_'] = Article.objects.filter(status=1)
         context['last_article'] = Article.objects.filter(status=1).order_by('-id')[:3]
         context['author'] = User.objects.get(username=self.kwargs['username'])
-        context['date'] = jalali_converter(datetime.datetime.now()),
+        context['date'] = str(jalali_converter(datetime.datetime.now())),
+        context['date'] = str(context['date']).replace('(', '').replace(')', '').replace(',', '').replace("'", '')
         return context
 
     def get_queryset(self, *args, **kwargs):

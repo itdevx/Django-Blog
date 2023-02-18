@@ -49,7 +49,7 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <a href="index-2.html">
-                        <img src="{% static 'images\logo-magazine.png' %}" height="30" class="mx-auto d-block" alt="">
+                        <img src="{% static 'images\IT-TECH.png' %}" height="30" class="mx-auto d-block" alt="">
                     </a>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     <div class="border-bottom">
                         <!-- Logo container-->
                         <a class="logo d-lg-none" href="index-2.html">
-                            <img src="images\logo.png" height="22" alt="">
+                            <img src="{% static 'images\logo.png' %}" height="22" alt="">
                         </a>
                         <!-- End Logo container-->
                         <div class="menu-extras">
@@ -108,9 +108,9 @@
                                 <li><a href="{% url 'account:all-users' %}" class="sub-menu-item ps-lg-0">کاربران</a></li>
                                 {% endif %}
                                 <li><a href="{% url 'account:create-article' %}" class="sub-menu-item">ایجاد مقاله</a></li>
-                                <li><a href="{% url 'account:update-profile' request.user.id %}" class="sub-menu-item">پروفایل</a></li>
+                                <li><a href="{% url 'account:update-profile' request.user.username %}" class="sub-menu-item">پروفایل</a></li>
                                 <li><a href="{% url 'account:change-password' %}" class="sub-menu-item">تغییر رمزعبور</a></li>
-                                <li><a href="{% url 'account:sign-out' %}" class="text-danger sub-menu-item">خروج</a></li>
+                                <li><a href="{% url 'account:sign-out' %}" class="sub-menu-item" style="color: red;">خروج</a></li>
                             </ul>
                             <!--end navigation menu-->
                         </div>

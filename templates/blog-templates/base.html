@@ -44,7 +44,7 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <a href="index-2.html">
-                        <img src="{% static 'images\logo-magazine.png' %}" height="30" class="mx-auto d-block" alt="">
+                        <img src="{% static 'images\IT-TECH.png' %}" height="30" class="mx-auto d-block" alt="">
                     </a>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                                     <li><a href="/article/{{ c.category_slug }}/" class="sub-menu-item">{{ c.category_name }}</a></li>
                                 {% endfor %}
                                 {% if request.user.is_authenticated %}
-                                <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item mx-2 text-primary">داشبورد</a></li>
+                                <li><a href="{% url 'account:dashboard' %}" class="sub-menu-item mx-2">داشبورد</a></li>
                                 <li><a href="{% url 'account:sign-out' %}" class="sub-menu-item mx-2" style="color: red;">خروج</a></li>
                                 {% else %}
                                 <li><a href="{% url 'account:sign-in' %}" class="sub-menu-item mx-2 text-primary">ورود</a></li>
@@ -137,7 +137,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
                                 <a href="#" class="logo-footer">
-                                    <img src="images\logo-light.png" height="22" alt="">
+                                    <img src="{% static 'images\logo-light.png' %}" height="22" alt="">
                                 </a>
 
                                 <p class="mt-4">پروژه های طراحی ما تازه و ساده هستند و سود زیادی برای کسب و کار شما

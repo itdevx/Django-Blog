@@ -27,7 +27,7 @@ urlpatterns = [
         'dashboard/delete-article/<pk>/<slug>', DeleteArticle.as_view(), name='delete-article'
     ),
     path(
-        'dashboard/update-profile/<int:pk>', UpdateProfile.as_view(), name='update-profile'
+        'dashboard/update-profile/@<username>', UpdateProfile.as_view(), name='update-profile'
     ),
     path(
         'dashboard/change-password/', ChangePassword.as_view(), name='change-password'

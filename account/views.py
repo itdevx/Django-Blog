@@ -147,6 +147,8 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/update-profile.html'
     login_url = 'account:sign-in'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
     def get_queryset(self):
         if self.request.user.is_superuser:
