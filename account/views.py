@@ -197,7 +197,26 @@ class UpdateCategory(LoginRequiredMixin, UpdateView):
 
 
 class DeleteCategory(LoginRequiredMixin, DeleteView):
-    pass
+    model = Category
+    template_name = 'dashboard/delete-category.html'
+    success_url = reverse_lazy('account:create-category')
+    login_url = 'account:sign-in'
+    context_object_name = 'category'   
+    slug_field = 'category_slug'
+    slug_url_kwarg = 'category_slug'
+
+    # def get_queryset(self):
+    #     """user filtering based on superuser. """
+    #     if self.request.user.is_superuser:
+    #         return Article.objects.filter(id=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
+    #     else:
+    #         raise Http404()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['article'] = Article.objects.filter(status=1)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):

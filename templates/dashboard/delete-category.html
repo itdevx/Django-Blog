@@ -1,6 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load crispy_forms_tags %}
-{% block title %} ایجاد دسته بندی جدید {% endblock %}
+{% block title %} پاک کردن دسته بندی {% endblock %}
 
 {% block body %}
     <section class="bg-half-170 bg-light d-table w-100">
@@ -8,7 +8,7 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="heading-title text-center">
-                        <h2 class="text-dark title mb-3">ایجاد دسته بندی جدید</h2>
+                        <h2 class="text-dark title mb-3">پاک کردن دسته بندی </h2>
                     </div>
                 </div>
             </div>
@@ -30,19 +30,6 @@
                         <div class="custom-form">
                             <form method="POST" name="myForm" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <p id="error-msg"></p>
-                                <div id="simple-msg"></div>
-                                <div class="row">
-                                    {{ form|crispy }}
-                                    {{ form.media }}                                    
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-grid">
-                                            <button type="submit" id="submit" name="send" class="btn btn-primary mt-5">ایجاد</button>
-                                        </div>
-                                    </div>
-                                </div>
                                 <table class="table mt-5">
                                     <thead>
                                       <tr>
@@ -50,18 +37,16 @@
                                         <th scope="col">وضعیت</th>
                                       </tr>
                                     </thead>
-                                    <tbody>
-                                      {% for c in category %}
-                                          <tr class="text-end">
-                                                <td>{{ c.category_name }}</td>
-                                                <td>
-                                                    <a class="mx-5" href="{% url 'account:update-category' c.category_slug %}">ویرایش</a>
-                                                    <a class="mx-5" style="color: red;" href="{% url 'account:delete-category' c.category_slug %}">پاک کردن</a>
-                                                </td>                      
-                                            </tr>
-                                      {% endfor %}
+                                    <tbody>                                       
+                                        <tr class="text-end">
+                                            <td>{{ category.category_name }}</td>
+                                            <td>
+                                                <button type="submit" id="submit" name="send" class="btn" style="color: red;">پاک کردن</button>
+                                            </td>                      
+                                        </tr>
                                     </tbody>
                                 </table>
+                                
                             </form>
                             
                         </div>

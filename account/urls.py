@@ -12,7 +12,8 @@ from .views import (
     AllUserDashboard,
     EditUserDashboard,
     CreateCategory,
-    UpdateCategory
+    UpdateCategory,
+    DeleteCategory
     )
 
 app_name = 'account'
@@ -39,6 +40,9 @@ urlpatterns = [
     ),
     path(
         'dashboard/update-category/<category_slug>', UpdateCategory.as_view(), name='update-category'
+    ),
+    path(
+        'dashboard/delete-category/<category_slug>', DeleteCategory.as_view(), name='delete-category'
     ),
     path(
         'dashboard/update-article/<int:pk>/', UpdateArticle.as_view(), name='update-article'
