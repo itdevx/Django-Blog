@@ -25,17 +25,13 @@ class SignInBlogView(View):
     template_name = 'authenticate-templates/sign-in.html'
     form_class = SignInForm
 
-    """
-    send data for template
-    """
     def get(self, request):
+        """send data for template. """
         form = self.form_class
         return render(request, self.template_name, {'form': form, 'date': jalali_converter(datetime.datetime.now())})
 
-    """
-    post user data and login
-    """
     def post(self, request):
+        """post user data and login. """
         form = self.form_class(request.POST)
         if form.is_valid():
             user = authenticate(
@@ -55,10 +51,10 @@ class SignUpBlogView(CreateView):
     form_class = SignUpForm
     template_name = 'authenticate-templates/sign-up.html'
 
-    """
-    checking form valid for register user and login after registering
-    """
     def form_valid(self, form):
+        """
+        checking form valid for register user and login after registering.
+        """
         form.save()
         username = self.request.POST['username']
         password = self.request.POST['password1']
@@ -68,35 +64,26 @@ class SignUpBlogView(CreateView):
             return redirect('blog:index')
         return super().form_valid(form)
 
-    """
-    send date value for tempalte
-    """
     def get_context_data(self, **kwargs):
+        """send date value for tempalte. """
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
         return context
 
 
 class SignOutBlogView(View):
-    """
-    logout user
-    """
     def get(self, request):
+        """logout user. """
         logout(request)
         return redirect('account:sign-in')
 
 
 class DashboardBlogView(LoginRequiredMixin, View):
-    """
-    dashboard view after authentication users
-    """
     login_url = 'account:sign-in'
     template_name = 'dashboard/dashboard.html'
 
-    """
-    checking the superuser or user and filtering the fields
-    """
     def get(self, request):
+        """checking the superuser or user and filtering the fields. """
         if request.user.is_superuser:
             article = Article.objects.order_by('-date').all()
             paginator = Paginator(article, 12)
@@ -112,9 +99,6 @@ class DashboardBlogView(LoginRequiredMixin, View):
 
 
 class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateView):
-    """
-    creating new article
-    """
     model = Article
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/create-article.html'
@@ -123,23 +107,19 @@ class CreateArticle(LoginRequiredMixin, FormValidMixins, FieldsMixins, CreateVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
+        context['article'] = Article.objects.filter(status=1)
         return context
 
 
 class UpdateArticle(LoginRequiredMixin, FieldsMixins, UpdateView):
-    """
-    editing article view
-    """
     model = Article
     fields = '__all__'
     success_url = reverse_lazy('account:dashboard')
     template_name = 'dashboard/update-article.html'
     login_url = 'account:sign-in'
 
-    """
-    filter users based on superuser or article author
-    """
     def get_queryset(self):
+        """filter users based on superuser or article author. """
         if self.request.user == Article.author or self.request.user.is_superuser:
             return super().get_queryset()
         else:
@@ -158,10 +138,8 @@ class DeleteArticle(LoginRequiredMixin, DeleteView):
     login_url = 'account:sign-in'
     context_object_name = 'a'   
 
-    """
-    user filtering based on superuser
-    """
     def get_queryset(self):
+        """user filtering based on superuser. """
         if self.request.user.is_superuser:
             return Article.objects.filter(id=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
         else:
@@ -185,12 +163,11 @@ class CreateCategory(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
         context['category'] = Category.objects.all()
+        context['article'] = Article.objects.filter(status=1)
         return context
 
-    """
-    filter this page by superuser
-    """
     def dispatch(self, request, *args, **kwargs):
+        """filter this page by superuser. """
         if request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
@@ -209,6 +186,7 @@ class UpdateCategory(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
+        context['article'] = Article.objects.filter(status=1)
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -216,6 +194,10 @@ class UpdateCategory(LoginRequiredMixin, UpdateView):
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404()
+
+
+class DeleteCategory(LoginRequiredMixin, DeleteView):
+    pass
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
@@ -227,19 +209,15 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
-    """
-    filter users by superuser or user_id after loged in
-    """
     def get_queryset(self):
+        """filter users by superuser or user_id after authentication. """
         if self.request.user.is_superuser:
             return super().get_queryset()
         else:
             return User.objects.filter(id=self.request.user.id)
 
-    """
-    filtering fields by superuser or user
-    """
     def dispatch(self, request, *args, **kwargs):
+        """filtering fields by superuser or user. """
         if request.user.is_superuser:
             self.fields = '__all__'
         else:
@@ -261,6 +239,7 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
+        context['article'] = Article.objects.filter(status=1)
         return context
 
 
@@ -289,16 +268,14 @@ class ChangePassword(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
+        context['article'] = Article.objects.filter(status=1)
         return context
 
 
 class AllUserDashboard(View):
     template_name = 'dashboard/users.html'
-
-    """
-    show all user and filter users by superuser
-    """
     def get(self, request):
+        """show all user and filter users by superuser. """
         if request.user.is_superuser:
             users = User.objects.order_by('-id').all()
             paginator = Paginator(users, 12)
@@ -306,7 +283,7 @@ class AllUserDashboard(View):
             page_obj = paginator.get_page(page_number)
         else:
             raise Http404()
-        return render(request, self.template_name, {'users': page_obj, 'date': jalali_converter(datetime.datetime.now())})
+        return render(request, self.template_name, {'users': page_obj, 'date': jalali_converter(datetime.datetime.now()), 'article': Article.objects.filter(status=1)})
 
 
 class EditUserDashboard(UpdateView):
@@ -317,10 +294,8 @@ class EditUserDashboard(UpdateView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
-    """
-    filter this page to view by superuser
-    """
     def dispatch(self, request, username, *args, **kwargs):
+        """filter this page to view by superuser. """
         user = get_object_or_404(User, username=username)
         if request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
@@ -330,5 +305,6 @@ class EditUserDashboard(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date'] = jalali_converter(datetime.datetime.now())
+        context['article'] = Article.objects.filter(status=1)
         return context
         
