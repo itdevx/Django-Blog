@@ -11,6 +11,7 @@ from .views import (
     ChangePassword,
     AllUserDashboard,
     EditUserDashboard,
+    DeleteUserDashboard,
     CreateCategory,
     UpdateCategory,
     DeleteCategory
@@ -61,5 +62,8 @@ urlpatterns = [
     ),
     path(
         'dashboard/edit-user/@<username>/', EditUserDashboard.as_view(), name='edit-user'
+    ),
+    path(
+        'dashboard/delete-user/@<username>/', DeleteUserDashboard.as_view(), name='delete-user'
     )
 ]

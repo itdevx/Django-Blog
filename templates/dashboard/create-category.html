@@ -55,8 +55,8 @@
                                           <tr class="text-end">
                                                 <td>{{ c.category_name }}</td>
                                                 <td>
-                                                    <a class="mx-5" href="{% url 'account:update-category' c.category_slug %}">ویرایش</a>
-                                                    <a class="mx-5" style="color: red;" href="{% url 'account:delete-category' c.category_slug %}">پاک کردن</a>
+                                                    <a class="mx-5" href="{% url 'account:update-category' c.category_slug %}"><i class="uil uil-edit text-primary" style="font-size: 20px;"></i></a>
+                                                    <a class="mx-5" style="color: red;" href="{% url 'account:delete-category' c.category_slug %}"><i class="uil uil-trash" style="color: red; font-size: 20px;"></i></a>
                                                 </td>                      
                                             </tr>
                                       {% endfor %}

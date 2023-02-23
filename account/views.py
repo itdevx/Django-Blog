@@ -44,7 +44,6 @@ class SignInBlogView(View):
             else:
                 form.add_error('username', 'نام کاربری یا کلمه عبور اشتباه میباشد')
         return render(request, self.template_name, {'form': form, 'date': jalali_converter(datetime.datetime.now())})
-        
 
 
 class SignUpBlogView(CreateView):
@@ -327,3 +326,26 @@ class EditUserDashboard(UpdateView):
         context['article'] = Article.objects.filter(status=1)
         return context
         
+
+class DeleteUserDashboard(DeleteView):
+    model = User
+    template_name = 'dashboard/delete-user.html'
+    success_url = reverse_lazy('account:all-users')
+    login_url = 'account:sign-in'
+    context_object_name = 'user'   
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+
+    def dispatch(self, request, username, *args, **kwargs):
+        """filter this page to view by superuser. """
+        user = get_object_or_404(User, username=username)
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['article'] = Article.objects.filter(status=1)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context

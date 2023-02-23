@@ -25,7 +25,10 @@
                             <td>{{ a.email }}</td>
                             <td>{{ a.get_date_join }}</td>
                             <td>{{ a.last_login.time }} | {{ a.get_last_login }}</td>
-                            <td><a href="{% url 'account:edit-user' a.username %}">ویرایش</a></td>
+                            <td>
+                                <a href="{% url 'account:delete-user' a.username %}" style="color: red;"><i class="uil uil-trash p-2" style="color: red; font-size: 20px;"></i></a>
+                                <a href="{% url 'account:edit-user' a.username %}"><i class="uil uil-edit text-primary p-2" style="font-size: 20px;"></i></a>
+                            </td>
                         </tr>
                     {% endfor %}
                   </tbody>
