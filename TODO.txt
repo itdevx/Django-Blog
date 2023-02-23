@@ -8,7 +8,6 @@ Article Model :
     readtime
     author
     description
-    # tags
     hit count
 
 Category Model:
