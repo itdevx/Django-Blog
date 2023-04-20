@@ -74,7 +74,7 @@ class SignOutBlogView(View):
     def get(self, request):
         """logout user. """
         logout(request)
-        return redirect('account:sign-in')
+        return redirect('blog:index')
 
 
 class DashboardBlogView(LoginRequiredMixin, View):

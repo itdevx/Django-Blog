@@ -26,8 +26,10 @@ class User(AbstractUser):
     githb = models.CharField(null=True, blank=True, max_length=200, verbose_name='گیت هاب')
     telegram = models.CharField(null=True, blank=True, max_length=200, verbose_name='تلگرام')
 
+    @property
     def get_date_join(self):
         return jalali_converter(self.date_joined)
 
+    @property
     def get_last_login(self):
         return jalali_converter(self.last_login.date())

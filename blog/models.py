@@ -59,16 +59,20 @@ class Article(models.Model):
     def get_absolut_url(self):
         return reverse('blog:detail-article', args=[self.pk, self.slug])
 
+    @property
     def get_readtime(self):
         result = readtime.of_text(self.description)
         res = str(result.text)
         return res.replace('min', 'دقیقه')
     
+    @property
     def get_date(self):
         return jalali_converter(self.date)
 
+    @property
     def get_absolut_author(self):
         return reverse('blog:author-view', args=[self.author.username])
     
+    @property
     def get_url_for_delete(self):
         return reverse('account:delete-article', args=[self.id, self.slug])
