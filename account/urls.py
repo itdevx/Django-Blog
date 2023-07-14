@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import (
     SignUpBlogView,
     DashboardBlogView,
@@ -14,7 +14,8 @@ from .views import (
     DeleteUserDashboard,
     CreateCategory,
     UpdateCategory,
-    DeleteCategory
+    DeleteCategory,
+    activate
     )
 
 app_name = 'account'
@@ -23,6 +24,9 @@ app_name = 'account'
 urlpatterns = [
     path(
         'sign-up/', SignUpBlogView.as_view(), name='sign-up'
+    ),
+    path(
+        'activate/<uidb64>/<token>', activate, name='activate'
     ),
     path(
         'dashboard/', DashboardBlogView.as_view(), name='dashboard'

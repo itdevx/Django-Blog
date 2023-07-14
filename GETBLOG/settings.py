@@ -144,3 +144,12 @@ AUTH_USER_MODEL = 'account.User'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# send email 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'itdevx1@gmail.com'
+EMAIL_HOST_PASSWORD = 'yasin71135162'
+EMAIL_PORT = 587
