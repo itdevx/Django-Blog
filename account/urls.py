@@ -15,7 +15,6 @@ from .views import (
     CreateCategory,
     UpdateCategory,
     DeleteCategory,
-    activate
     )
 
 app_name = 'account'
@@ -25,9 +24,9 @@ urlpatterns = [
     path(
         'sign-up/', SignUpBlogView.as_view(), name='sign-up'
     ),
-    path(
-        'activate/<uidb64>/<token>', activate, name='activate'
-    ),
+    # path(
+    #     'activate/<uidb64>/<token>', activate, name='activate'
+    # ),
     path(
         'dashboard/', DashboardBlogView.as_view(), name='dashboard'
     ),

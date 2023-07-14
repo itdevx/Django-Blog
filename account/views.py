@@ -54,65 +54,65 @@ class SignInBlogView(View):
         return render(request, self.template_name, {'form': form, 'date': jalali_converter(datetime.datetime.now())})
 
 
-class SignUpBlogView(CreateView):
-    form_class = SignUpForm
-    template_name = 'authenticate-templates/sign-up.html'
-
-    def form_valid(self, form):
-        user = form.save(commit=False)
-        user.is_active = False
-        user.save()
-        current_site = get_current_site(self.request)
-        mail_subject = 'فعال سازی اکانت'
-        message = render_to_string('authenticate-templates/acc_verify_email.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token.make_token(user),
-        })
-        to_email = form.cleaned_data.get('email')
-        email = EmailMessage(
-            mail_subject, message, to=[to_email]
-        )
-        email.send()
-        return HttpResponse('لینک فعالسازی برای ایمیل شما ارسال شد!')
-        
-def activate(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        return HttpResponse('ممنون از ثبت نام شما!')
-    else:
-        return HttpResponse('لینک فعالسازی منقضی شده است!')
-        
 # class SignUpBlogView(CreateView):
 #     form_class = SignUpForm
 #     template_name = 'authenticate-templates/sign-up.html'
 
 #     def form_valid(self, form):
-#         """
-#         checking form valid for register user and login after registering.
-#         """
-#         form.save()
-#         username = self.request.POST['username']
-#         password = self.request.POST['password1']
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             login(self.request, user)
-#             return redirect('blog:index')
-#         return super().form_valid(form)
+#         user = form.save(commit=False)
+#         user.is_active = False
+#         user.save()
+#         current_site = get_current_site(self.request)
+#         mail_subject = 'فعال سازی اکانت'
+#         message = render_to_string('authenticate-templates/acc_verify_email.html', {
+#             'user': user,
+#             'domain': current_site.domain,
+#             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#             'token': account_activation_token.make_token(user),
+#         })
+#         to_email = form.cleaned_data.get('email')
+#         email = EmailMessage(
+#             mail_subject, message, to=[to_email]
+#         )
+#         email.send()
+#         return HttpResponse('لینک فعالسازی برای ایمیل شما ارسال شد!')
+        
+# def activate(request, uidb64, token):
+#     try:
+#         uid = force_text(urlsafe_base64_decode(uidb64))
+#         user = User.objects.get(pk=uid)
+#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         return HttpResponse('ممنون از ثبت نام شما!')
+#     else:
+#         return HttpResponse('لینک فعالسازی منقضی شده است!')
+        
+class SignUpBlogView(CreateView):
+    form_class = SignUpForm
+    template_name = 'authenticate-templates/sign-up.html'
 
-#     def get_context_data(self, **kwargs):
-#         """send date value for tempalte. """
-#         context = super().get_context_data(**kwargs)
-#         context['date'] = jalali_converter(datetime.datetime.now())
-#         return context
+    def form_valid(self, form):
+        """
+        checking form valid for register user and login after registering.
+        """
+        form.save()
+        username = self.request.POST['username']
+        password = self.request.POST['password1']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+            return redirect('blog:index')
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        """send date value for tempalte. """
+        context = super().get_context_data(**kwargs)
+        context['date'] = jalali_converter(datetime.datetime.now())
+        return context
 
 
 class SignOutBlogView(View):
