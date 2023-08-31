@@ -29,6 +29,7 @@ from account.tokens import account_activation_token
 from django.utils.encoding import force_str as force_text
 from django.utils.encoding import force_bytes
 
+
 class SignInBlogView(View):
     template_name = 'authenticate-templates/sign-in.html'
     form_class = SignInForm
