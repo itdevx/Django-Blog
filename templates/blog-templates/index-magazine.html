@@ -132,7 +132,9 @@
                                             {% else %}
                                             <img src="{% static 'images\users\user-1.jpg' %}" class="avatar avatar-sm-sm rounded-pill shadow" alt="">
                                             {% endif %}
+                                            {% if r_a.author.username %}
                                             <a href="{% url 'blog:author-view' r_a.author.username %}" class="text-dark h6 mb-0 author me-2">{{ r_a.author }}</a>
+                                            {% endif %}
                                         </li>
                                         <li>
                                             <span class="text-muted me-4"><i class="uil uil-calendar-alt text-dark"></i>{{ r_a.get_date }}</span>

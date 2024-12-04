@@ -11,4 +11,8 @@ class BlogAdmin(admin.ModelAdmin):
     }
 
 
-admin.site.register(Category)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {
+        'category_slug': ('category_name', )
+    }

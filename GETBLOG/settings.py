@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
     'hitcount',
+    'crispy_bootstrap4'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -60,6 +61,18 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'GETBLOG.urls'
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'extraPlugins': 'codesnippet',
+        'codeSnippet_theme': 'monokai_sublime',
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,
+        'width': 'auto',
+    },
+}
 
 TEMPLATES = [
     {

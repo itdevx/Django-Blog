@@ -101,6 +101,7 @@
                             <!-- Navigation Menu-->
                             <ul class="navigation-menu nav-left">
                                 <li><a href="{% url 'blog:index' %}" class="sub-menu-item ps-lg-0">خانه</a></li>
+                                
                                 {% for c in category %}
                                     <li><a href="/article/{{ c.category_slug }}/" class="sub-menu-item">{{ c.category_name }}</a></li>
                                 {% endfor %}
@@ -129,6 +130,9 @@
   {% endblock %}
 
      <!-- Footer Start -->
+
+
+      <hr style="background-color: #44475A;">
     <footer class="footer">
         <div class="container">
             <div class="row">
